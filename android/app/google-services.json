@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "390564954346",
+    "firebase_url": "https://todaygoodwords.firebaseio.com",
+    "project_id": "todaygoodwords",
+    "storage_bucket": "todaygoodwords.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390564954346:android:c4b9126d0c28d0bb2ed793",
+        "android_client_info": {
+          "package_name": "org.pianoforte.todaygoodwords"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390564954346-nscb7ecog73tkriha4cklq6otho8hrdl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKcwdt9UClnEKz3LWjK5DPZgkrPkscPkM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390564954346-nscb7ecog73tkriha4cklq6otho8hrdl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
