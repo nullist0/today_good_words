@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class LogoWidget extends StatelessWidget {
+class LogoText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text('pf');

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todaygoodwords/view/widget/date.dart';
+import 'package:todaygoodwords/view/widget/like.dart';
 import 'package:todaygoodwords/view/widget/logo.dart';
 import 'package:todaygoodwords/view/widget/share.dart';
 import 'package:todaygoodwords/view/widget/word.dart';
@@ -23,7 +24,7 @@ class TodayGoodWords extends StatelessWidget {
 
     return MaterialApp(
       home: Scaffold(
-        body: LogoWidget(),
+        body: LikeButton(),
       ),
     );
   }

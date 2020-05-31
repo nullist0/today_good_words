@@ -28,13 +28,14 @@ class WordLike{
 }
 
 class Word{
-  final WordText text;
+  final WordText word, name;
   final WordBackground background;
   final WordLike like;
   final DateTime date;
 
   Word({
-    this.text,
+    this.word,
+    this.name,
     this.background,
     this.like,
     this.date
