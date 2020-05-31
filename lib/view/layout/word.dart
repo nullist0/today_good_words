@@ -5,6 +5,7 @@ import 'package:todaygoodwords/view/widget/word.dart';
 
 class WordLandscape extends StatelessWidget {
   final GlobalKey wordWidgetKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
