@@ -4,19 +4,17 @@ import 'package:todaygoodwords/view/widget/logo.dart';
 
 ///Word Component = wordContainer + logo + date
 class WordWidget extends StatelessWidget {
-  const WordWidget({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         _wordContainer(),
         Positioned(
-          top:0, right: 0,
+          top:5, right: 5,
           child: DateWidget(date: DateTime.now()),
         ),
         Positioned(
-          bottom: 0, right: 0,
+          bottom: 5, right: 5,
           child: LogoText(),
         )
       ],

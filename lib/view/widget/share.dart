@@ -12,24 +12,27 @@ class ShareButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Ink(
+    return ButtonTheme(
+      minWidth: 30,
       height: 30,
-      width: 30,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.blueAccent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(30))
       ),
-      child: InkWell(
-        child: Center(child: Text('S', style: TextStyle(color: Colors.white),)),
-        onTap: () async {
+      child: FlatButton(
+        child: Text('S',style: TextStyle(color: Colors.white)),
+        padding: EdgeInsets.zero,
+        color: Colors.blue,
+        onPressed: () async {
+          //Capture the Widget
           RenderRepaintBoundary boundary = wordWidgetKey.currentContext.findRenderObject();
-          ui.Image image = await boundary.toImage();
+          ui.Image image = await boundary.toImage(pixelRatio: 3.0);
           ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
           Uint8List pngByte = byteData.buffer.asUint8List();
+
+          //Share
           Share.file('title', 'name.png', pngByte, 'image/png');
         },
-        customBorder: CircleBorder(),
-      ),
+      )
     );
   }
 }

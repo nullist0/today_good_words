@@ -22,7 +22,11 @@ class _LikeButtonState extends State<LikeButton> {
           _like(isLiked),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Text('$likedNumber'),
+            child: Text('$likedNumber',
+              style: TextStyle(
+                fontSize: 18
+              ),
+            ),
           )
         ],
       ),
