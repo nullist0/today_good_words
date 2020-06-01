@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:todaygoodwords/model/data/words.dart';
 import 'package:todaygoodwords/model/helper/word_helper.dart';
 
 class WordFirebaseStreamBuilder extends StatelessWidget {
-  final Widget loadingWidget, successWidget, failedWidget;
+  final Widget Function(Word) successWidget;
+  final Widget Function() loadingWidget, failedWidget;
   final DateTime date;
 
   const WordFirebaseStreamBuilder(
@@ -16,15 +19,15 @@ class WordFirebaseStreamBuilder extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return StreamBuilder<DocumentSnapshot>(
       stream: WordFirebaseHelper(date: date).read().asStream(),
       builder: (context, snap){
-        if(snap.hasData)
-          return successWidget;
-        else if(!snap.hasError)
-          return loadingWidget;
+        if(snap.hasData && snap.data.data != null)
+          return successWidget(Word.fromSnapshot(date, snap.data));
+        else if(!snap.hasError && !snap.hasData)
+          return loadingWidget();
         else
-          return failedWidget;
+          return failedWidget();
       }
     );
   }

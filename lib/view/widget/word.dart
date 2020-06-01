@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:todaygoodwords/model/data/words.dart';
 import 'package:todaygoodwords/view/widget/date.dart';
 import 'package:todaygoodwords/view/widget/logo.dart';
 
 ///Word Component = wordContainer + logo + date
 class WordWidget extends StatelessWidget {
+  final Word saying;
+
+  const WordWidget({Key key, @required this.saying}) :  assert(saying != null), super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -11,7 +16,7 @@ class WordWidget extends StatelessWidget {
         _wordContainer(),
         Positioned(
           top:5, right: 5,
-          child: DateWidget(date: DateTime.now()),
+          child: DateWidget(date: saying.date),
         ),
         Positioned(
           bottom: 5, right: 5,
@@ -29,26 +34,28 @@ class WordWidget extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: Text('\"인간은 거짓말 해줘야 하는\n사람을 싫어한다.\"',
+              child: Text('\"${saying.word.text}\"',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.black,
-                    fontFamily: 'RobotoMono'
-                ),
+                style: saying.word.style
               ),
             ),
-            Text('빅토르 위고',
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontFamily: 'RobotoMono'
-              ),
+            Text(saying.name.text,
+              style: saying.name.style
             )
           ],
         ),
       ),
-      color: const Color(0xFFF5F5DC),
+      color: saying.background.color,
     );
+  }
+}
+
+class LoadWordWidget extends StatelessWidget {
+  final DateTime date;
+
+  const LoadWordWidget({Key key, this.date}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return WordWidget(saying: Word.loadWord(date));
   }
 }

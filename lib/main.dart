@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:todaygoodwords/view/layout/word.dart';
+import 'package:todaygoodwords/layout/login.dart';
+import 'package:todaygoodwords/layout/word.dart';
 
 void main() {
   runApp(TodayGoodWords());
@@ -18,7 +19,9 @@ class TodayGoodWords extends StatelessWidget {
 
     return MaterialApp(
       home: Scaffold(
-        body: WordLandscape(),
+        body: Login(
+          child: WordLandscape()
+        )
       ),
     );
   }
