@@ -13,7 +13,26 @@ class WordWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        _wordContainer(),
+        Container(
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Text('\"${saying.word.text}\"',
+                      textAlign: TextAlign.center,
+                      style: saying.word.style
+                  ),
+                ),
+                Text(saying.name.text,
+                    style: saying.name.style
+                )
+              ],
+            ),
+          ),
+          color: saying.background.color,
+        ),
         Positioned(
           top:5, right: 5,
           child: DateWidget(date: saying.date),
@@ -24,38 +43,5 @@ class WordWidget extends StatelessWidget {
         )
       ],
     );
-  }
-
-  Widget _wordContainer() {
-    return Container(
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Text('\"${saying.word.text}\"',
-                textAlign: TextAlign.center,
-                style: saying.word.style
-              ),
-            ),
-            Text(saying.name.text,
-              style: saying.name.style
-            )
-          ],
-        ),
-      ),
-      color: saying.background.color,
-    );
-  }
-}
-
-class LoadWordWidget extends StatelessWidget {
-  final DateTime date;
-
-  const LoadWordWidget({Key key, this.date}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return WordWidget(saying: Word.loadWord(date));
   }
 }

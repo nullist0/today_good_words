@@ -1,14 +1,10 @@
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class ShareButton extends StatelessWidget {
-  final GlobalKey wordWidgetKey;
+  final VoidCallback onTap;
 
-  const ShareButton({Key key, @required this.wordWidgetKey}) : super(key: key);
+  const ShareButton({Key key, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +18,7 @@ class ShareButton extends StatelessWidget {
         child: Text('S',style: TextStyle(color: Colors.white)),
         padding: EdgeInsets.zero,
         color: Colors.blue,
-        onPressed: () async {
-          //Capture the Widget
-          RenderRepaintBoundary boundary = wordWidgetKey.currentContext.findRenderObject();
-          ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-          ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-          Uint8List pngByte = byteData.buffer.asUint8List();
-
-          //Share
-          Share.file('title', 'name.png', pngByte, 'image/png');
-        },
+        onPressed: onTap,
       )
     );
   }

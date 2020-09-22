@@ -1,19 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:todaygoodwords/model/data/users.dart';
+class Like{
+  final bool isLike;
+  final int likeCount;
 
-class WordLike{
-  bool isLike;
-  int likes;
-
-  WordLike({
+  Like({
     this.isLike = false,
-    this.likes = 0
+    this.likeCount = 0
   });
-
-  static WordLike fromSnapshot(User user, QuerySnapshot data){
-    return WordLike(
-      isLike: data.documents.any((element) => element.documentID == user.uid),
-      likes: data.documents.length
-    );
-  }
 }
