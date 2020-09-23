@@ -2,6 +2,10 @@
 
 과거 만들었던 오늘의 좋은말을 Flutter로 보완하여 만든 프로젝트입니다.
 
+# Status
+
+- MVVM 로 제작
+
 # Goal
 
 ## Screen
