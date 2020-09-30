@@ -8,6 +8,7 @@ class ShareButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ButtonTheme(
       minWidth: 30,
       height: 30,
