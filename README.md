@@ -1,3 +1,5 @@
+[![Codemagic build status](https://api.codemagic.io/apps/5f70828e40212b743c0d1d56/5f70828e40212b743c0d1d55/status_badge.svg)](https://codemagic.io/apps/5f70828e40212b743c0d1d56/5f70828e40212b743c0d1d55/latest_build)
+
 # 오늘의 좋은 말 소개
 
 과거 만들었던 오늘의 좋은말을 Flutter로 보완하여 만든 프로젝트입니다.
