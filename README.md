@@ -1,4 +1,5 @@
 [![Codemagic build status](https://api.codemagic.io/apps/5f70828e40212b743c0d1d56/5f70828e40212b743c0d1d55/status_badge.svg)](https://codemagic.io/apps/5f70828e40212b743c0d1d56/5f70828e40212b743c0d1d55/latest_build)
+[![codecov](https://codecov.io/gh/Lee-Null/TodayGoodWords/branch/master/graph/badge.svg)](https://codecov.io/gh/Lee-Null/TodayGoodWords)
 
 # 오늘의 좋은 말 소개
 
