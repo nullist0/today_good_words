@@ -4,7 +4,7 @@
 
 # Status
 
-- MVVM 로 제작
+- MVVM, Repository Pattern 추가
 
 # Goal
 
@@ -13,6 +13,10 @@
 ![Full Screen](https://github.com/Lee-Null/TodayGoodWords/blob/master/capture/full_screen.png?raw=true)
 
 ![Date Captured Screen](https://github.com/Lee-Null/TodayGoodWords/blob/master/capture/2020-06-01.png?raw=true)
+
+## TODOs
+
+- test code 추가
 
 ## Development
 - [Road Map](https://www.notion.so/7fa252129186418280fc8cd386be4bb1?v=d8fd1a7d40cc4532b01b214ea93f6dc6)
