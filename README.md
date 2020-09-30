@@ -12,8 +12,6 @@
 
 ## Screen
 
-![Full Screen](https://github.com/Lee-Null/TodayGoodWords/blob/master/capture/full_screen.png?raw=true)
-
 ![Date Captured Screen](https://github.com/Lee-Null/TodayGoodWords/blob/master/capture/2020-06-01.png?raw=true)
 
 ## TODOs
