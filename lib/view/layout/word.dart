@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +43,7 @@ class _WordLandscapeState extends State<WordLandscape> {
     final Uint8List pngByte = byteData.buffer.asUint8List();
 
     //Share
-    return Share.file('title', 'name.png', pngByte, 'image/png');
+    // return Share.file('title', 'name.png', pngByte, 'image/png');
   }
 
   @override
