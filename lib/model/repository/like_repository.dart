@@ -39,6 +39,6 @@ class LikeRepositoryImpl implements LikeRepository {
     return StreamZip([
       _isLike(uid),
       _likeCount()
-    ]).map((event) => Like(isLike: event[0] ?? false, likeCount: event[1] ?? 0));
+    ]).map((event) => Like(isLike: event[0] as bool ?? false, likeCount: event[1] as int ?? 0));
   }
 }

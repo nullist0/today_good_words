@@ -1,8 +1,4 @@
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:todaygoodwords/model/data/likes.dart';
 import 'package:todaygoodwords/model/data/users.dart';
@@ -20,7 +16,7 @@ class WordLandscape extends StatefulWidget {
 class _WordLandscapeState extends State<WordLandscape> {
   final GlobalKey _wordWidgetKey = GlobalKey();
 
-  WordLandScapeViewModel _viewModel;
+  late WordLandScapeViewModel _viewModel;
 
   @override
   void didChangeDependencies() {
@@ -36,11 +32,11 @@ class _WordLandscapeState extends State<WordLandscape> {
   }
 
   Future<void> _share () async {
-    //Capture the Widget
-    final RenderRepaintBoundary boundary = _wordWidgetKey.currentContext.findRenderObject();
-    final ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-    final ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-    final Uint8List pngByte = byteData.buffer.asUint8List();
+    // TODO Capture the Widget
+    // final RenderObject? boundary = _wordWidgetKey.currentContext.findRenderObject();
+    // final ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+    // final ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    // final Uint8List pngByte = byteData.buffer.asUint8List();
 
     //Share
     // return Share.file('title', 'name.png', pngByte, 'image/png');
@@ -52,10 +48,10 @@ class _WordLandscapeState extends State<WordLandscape> {
       children: <Widget>[
         StreamBuilder<Word>(
           stream: _viewModel.word,
-          builder: (context, snapshot) {
+          builder: (_, snapshot) {
             return RepaintBoundary(
               key: _wordWidgetKey,
-              child: WordWidget(saying: snapshot.data),
+              child: WordWidget(saying: snapshot.data ?? Word.createWord("Loading", "", DateTime.now())),
             );
           }
         ),
@@ -68,7 +64,7 @@ class _WordLandscapeState extends State<WordLandscape> {
           builder: (_, snap) {
             return Positioned(
               bottom: 20, left: 10,
-              child: LikeButton(like: snap.data, onTap: _viewModel.sendLike,)
+              child: LikeButton(like: snap.data ?? Like(), onTap: _viewModel.sendLike,)
             );
           },
         ),

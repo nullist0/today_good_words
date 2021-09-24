@@ -15,7 +15,6 @@ abstract class WordLandScapeViewModel {
 }
 
 class WordLandScapeViewModelImpl implements WordLandScapeViewModel {
-  final DateTime _date = DateTime.now();
   final String _uid;
 
   final StreamController<Like> _likeController = StreamController.broadcast();
@@ -24,9 +23,9 @@ class WordLandScapeViewModelImpl implements WordLandScapeViewModel {
   LikeRepository _likeRepository;
   WordRepository _wordRepository;
 
-  WordLandScapeViewModelImpl(this._uid) {
-    _likeRepository = LikeRepositoryImpl(_date);
-    _wordRepository = WordRepositoryImpl(_date);
+  WordLandScapeViewModelImpl(this._uid)
+    : _likeRepository = LikeRepositoryImpl(DateTime.now()),
+      _wordRepository = WordRepositoryImpl(DateTime.now()) {
 
     _wordController.addStream(_wordRepository.read());
     _likeController.addStream(_likeRepository.read(_uid));

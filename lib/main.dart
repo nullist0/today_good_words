@@ -18,7 +18,7 @@ class TodayGoodWords extends StatelessWidget {
     //SET Orientation
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     //SET FullScreen
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
     return Firebase.initializeApp().then((_) => _repository.login());
   }
@@ -28,7 +28,8 @@ class TodayGoodWords extends StatelessWidget {
     return FutureBuilder(
       future: _initialize(),
       builder: (context, snapshot) {
-        return StreamProvider<User>(
+        return StreamProvider<User?>(
+          initialData: null,
           create: (_) => _repository.read(),
           child: MaterialApp(
             home: Scaffold(

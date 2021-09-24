@@ -7,7 +7,7 @@ import 'package:todaygoodwords/view/widget/logo.dart';
 class WordWidget extends StatelessWidget {
   final Word saying;
 
-  const WordWidget({Key key, @required this.saying}) :  assert(saying != null), super(key: key);
+  const WordWidget({Key? key, required this.saying}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

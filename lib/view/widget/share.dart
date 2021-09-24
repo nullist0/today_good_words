@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class ShareButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
-  const ShareButton({Key key, this.onTap}) : super(key: key);
+  const ShareButton({Key? key, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

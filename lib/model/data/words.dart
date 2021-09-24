@@ -6,15 +6,15 @@ class WordText{
   final String text;
   final TextStyle style;
   WordText({
-    this.text,
-    this.style
+    required this.text,
+    required this.style
   });
 }
 
 class WordBackground{
   final Color color;
   WordBackground({
-    this.color
+    required this.color
   });
 }
 
@@ -25,11 +25,11 @@ class Word{
   final EdgeInsets betweenWordAndName;
 
   Word({
-    this.word,
-    this.name,
-    this.background,
-    this.date,
-    this.betweenWordAndName
+    required this.word,
+    required this.name,
+    required this.background,
+    required this.date,
+    required this.betweenWordAndName
   });
 
   Word.createWord(String text, String name, this.date)
@@ -47,8 +47,8 @@ class Word{
   static Word loadWord(DateTime date) => Word.createWord('불러오는 중입니다.', '잠시 기다려주세요.', date);
   static Word failedWord(DateTime date) => Word.createWord('불러오기 실패했습니다.', '잠시 후에 다시 접속해주세요.', date);
 
-  static Word fromSnapshot(DateTime date, DocumentSnapshot doc) {
-    final Map<String, dynamic> data = doc.data();
+  static Word fromSnapshot(DateTime date, DocumentSnapshot<Map<String, dynamic>> doc) {
+    final Map<String, dynamic> data = doc.data() ?? {};
     WordText word = WordText(
       text: (data['text'] as String).replaceAll('\\n', '\n'),
       style: TextStyle(

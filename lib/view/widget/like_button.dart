@@ -3,9 +3,9 @@ import 'package:todaygoodwords/model/data/likes.dart';
 
 class LikeButton extends StatelessWidget {
   final Like like;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
-  const LikeButton({Key key, this.like, this.onTap}) : super(key: key);
+  const LikeButton({Key? key, required this.like, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

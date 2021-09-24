@@ -14,6 +14,6 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Stream<User> read() {
-    return Auth.FirebaseAuth.instance.userChanges().map((event) => User(event.uid));
+    return Auth.FirebaseAuth.instance.userChanges().map((event) => User(event?.uid ?? ""));
   }
 }

@@ -5,7 +5,9 @@ class User {
 
   @override
   bool operator ==(other) {
-    return uid == other.uid;
+    if(other is User)
+      return uid == other.uid;
+    return false;
   }
 
   @override
