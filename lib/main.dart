@@ -18,7 +18,7 @@ class TodayGoodWords extends StatelessWidget {
     //SET Orientation
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     //SET FullScreen
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
     return Firebase.initializeApp().then((_) => _repository.login());
   }
