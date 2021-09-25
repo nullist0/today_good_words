@@ -15,7 +15,7 @@ class LikeRepositoryImpl implements LikeRepository {
   @override
   Future<void> like(final String uid) {
     return FirebaseFirestore.instance.runTransaction((transaction) {
-      final DocumentReference ref = FirebaseFirestore.instance.collection('words/${date.toDateString()}/like').doc(uid);
+      final DocumentReference ref = FirebaseFirestore.instance.collection('phrases/${date.toDateString()}/like').doc(uid);
       return transaction
           .get(ref)
           .then((value) => value.exists)
@@ -24,13 +24,13 @@ class LikeRepositoryImpl implements LikeRepository {
   }
 
   Stream<bool> _isLike(final String uid) => FirebaseFirestore.instance
-        .collection('words/${date.toDateString()}/like')
+        .collection('phrases/${date.toDateString()}/like')
         .doc(uid)
         .snapshots()
         .map((event) => event.exists);
 
   Stream<int> _likeCount() => FirebaseFirestore.instance
-        .collection('words/${date.toDateString()}/like')
+        .collection('phrases/${date.toDateString()}/like')
         .snapshots()
         .map((event) => event.docs.length);
 

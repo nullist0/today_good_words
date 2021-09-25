@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todaygoodwords/model/data/words.dart';
+import 'package:todaygoodwords/phrases//full_word.dart';
 import 'package:todaygoodwords/view/widget/date.dart';
 import 'package:todaygoodwords/view/widget/logo.dart';
 
