@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:todaygoodwords/main.dart';
+import 'package:todaygoodwords/phrases/phrase.dart';
 import 'package:todaygoodwords/phrases/phrase_bloc.dart';
 
 class ApplicationRunner {
@@ -8,11 +9,17 @@ class ApplicationRunner {
   
   ApplicationRunner(PhraseBloc phraseBloc) : _app = TodayGoodWords(phraseBloc: phraseBloc);
   
-  Future<void> startApp(WidgetTester tester) {
-    return tester.pumpWidget(_app);
+  Future<void> startApp(WidgetTester tester) async {
+    await tester.pumpWidget(_app);
+    await tester.pump(Duration.zero);
   }
 
-  void displayWords(String word) {
-    expect(find.text(word), findsOneWidget);
+  void displayLoading() {
+    expect(find.text('불러오는 중입니다.'), findsOneWidget);
+  }
+
+  void displayPhrase(final Phrase phrase) {
+    expect(find.text(phrase.name), findsOneWidget);
+    expect(find.textContaining(phrase.text), findsOneWidget);
   }
 }

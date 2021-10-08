@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:todaygoodwords/phrases/phrase.dart';
 import 'package:todaygoodwords/phrases/phrase_bloc.dart';
 
 import 'application_runner.dart';
@@ -15,7 +16,14 @@ void goodWordTestGroup() {
     testWidgets('display loading message when phrase is loading', (tester) async {
       app = ApplicationRunner(PhraseBloc(phraseRepositoryReadingNothing()));
       await app.startApp(tester);
-      app.displayWords('불러오는 중입니다.');
+      app.displayLoading();
+    });
+    
+    testWidgets('display correct phrase when phrase is loaded', (tester) async {
+      var phrase = Phrase('name', 'text');
+      app = ApplicationRunner(PhraseBloc(phraseRepositoryReadingOne(phrase)));
+      await app.startApp(tester);
+      app.displayPhrase(phrase);
     });
   });
 }

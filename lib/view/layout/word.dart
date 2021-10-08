@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:todaygoodwords/model/data/likes.dart';
-import 'package:todaygoodwords/model/data/users.dart';
 import 'package:todaygoodwords/phrases/phrase.dart';
 import 'package:todaygoodwords/phrases/phrase_bloc.dart';
-import 'package:todaygoodwords/view/widget/like_button.dart';
 import 'package:todaygoodwords/view/widget/loading.dart';
 import 'package:todaygoodwords/view/widget/phrase.dart';
-import 'package:todaygoodwords/view/widget/share.dart';
-import 'package:todaygoodwords/view_model/word_view_model.dart';
 
 class WordLandscape extends StatefulWidget {
   final PhraseBloc _phraseBloc;
@@ -56,11 +50,10 @@ class _WordLandscapeState extends State<WordLandscape> {
         StreamBuilder<Phrase>(
           stream: widget._phraseBloc.read(),
           builder: (_, snapshot) {
-            if(snapshot.hasData) {
+            if (snapshot.hasData) {
               var phrase = snapshot.data!;
               return PhraseWidget(phrase: phrase);
             }
-            print(snapshot.connectionState);
             return LoadingWidget();
           }
         ),
