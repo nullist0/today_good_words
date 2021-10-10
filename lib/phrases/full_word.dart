@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -46,34 +45,4 @@ class Word{
 
   static Word loadWord(DateTime date) => Word.createWord('불러오는 중입니다.', '잠시 기다려주세요.', date);
   static Word failedWord(DateTime date) => Word.createWord('불러오기 실패했습니다.', '잠시 후에 다시 접속해주세요.', date);
-
-  static Word fromSnapshot(DateTime date, DocumentSnapshot<Map<String, dynamic>> doc) {
-    final Map<String, dynamic> data = doc.data() ?? {};
-    WordText word = WordText(
-      text: (data['text'] as String).replaceAll('\\n', '\n'),
-      style: TextStyle(
-        color: Color(int.parse(data['textColor'])),
-        fontSize: (data['textSize'] as int).toDouble(),
-        fontFamily: data['textFont'],
-      )
-    );
-    WordText name = WordText(
-      text: data['name'],
-      style: TextStyle(
-        color: Color(int.parse(data['nameColor'])),
-        fontSize: (data['nameSize'] as int).toDouble(),
-        fontFamily: data['nameFont'],
-      )
-    );
-    WordBackground back = WordBackground(
-      color: Color(int.parse(data['backgroundColor']))
-    );
-    return Word(
-      word: word,
-      name: name,
-      background: back,
-      date: date,
-      betweenWordAndName: EdgeInsets.only(bottom: (data['padding'] as int).toDouble())
-    );
-  }
 }

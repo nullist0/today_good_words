@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:todaygoodwords/model/data/likes.dart';
-import 'package:todaygoodwords/model/data/users.dart';
-import 'package:todaygoodwords/model/data/words.dart';
-import 'package:todaygoodwords/view/widget/like_button.dart';
-import 'package:todaygoodwords/view/widget/share.dart';
-import 'package:todaygoodwords/view/widget/word.dart';
-import 'package:todaygoodwords/view_model/word_view_model.dart';
+import 'package:todaygoodwords/phrases/phrase.dart';
+import 'package:todaygoodwords/phrases/phrase_bloc.dart';
+import 'package:todaygoodwords/view/widget/failure.dart';
+import 'package:todaygoodwords/view/widget/loading.dart';
+import 'package:todaygoodwords/view/widget/phrase.dart';
 
 class WordLandscape extends StatefulWidget {
+  final PhraseBloc _phraseBloc;
+
+  const WordLandscape({Key? key, required PhraseBloc phraseBloc})
+      : _phraseBloc = phraseBloc, super(key: key);
+
   @override
   _WordLandscapeState createState() => _WordLandscapeState();
 }
@@ -16,19 +18,19 @@ class WordLandscape extends StatefulWidget {
 class _WordLandscapeState extends State<WordLandscape> {
   final GlobalKey _wordWidgetKey = GlobalKey();
 
-  late WordLandScapeViewModel _viewModel;
+  // late WordLandScapeViewModel _viewModel;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final String uid = Provider.of<User>(context).uid;
-    _viewModel = WordLandScapeViewModelImpl(uid);
+    // final String uid = Provider.of<User>(context).uid;
+    // _viewModel = WordLandScapeViewModelImpl(uid);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _viewModel.dispose();
+    // _viewModel.dispose();
   }
 
   Future<void> _share () async {
@@ -46,28 +48,32 @@ class _WordLandscapeState extends State<WordLandscape> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        StreamBuilder<Word>(
-          stream: _viewModel.word,
+        StreamBuilder<Phrase>(
+          stream: widget._phraseBloc.read(),
           builder: (_, snapshot) {
-            return RepaintBoundary(
-              key: _wordWidgetKey,
-              child: WordWidget(saying: snapshot.data ?? Word.createWord("Loading", "", DateTime.now())),
-            );
+            if (snapshot.hasData) {
+              var phrase = snapshot.data!;
+              return PhraseWidget(phrase: phrase);
+            }
+            if (snapshot.hasError) {
+              return FailureWidget();
+            }
+            return LoadingWidget();
           }
         ),
-        Positioned(
-          top: 20, left: 10,
-          child: ShareButton(onTap: _share,),
-        ),
-        StreamBuilder<Like>(
-          stream: _viewModel.like,
-          builder: (_, snap) {
-            return Positioned(
-              bottom: 20, left: 10,
-              child: LikeButton(like: snap.data ?? Like(), onTap: _viewModel.sendLike,)
-            );
-          },
-        ),
+        // Positioned(
+        //   top: 20, left: 10,
+        //   child: ShareButton(onTap: _share,),
+        // ),
+        // StreamBuilder<Like>(
+        //   stream: _viewModel.like,
+        //   builder: (_, snap) {
+        //     return Positioned(
+        //       bottom: 20, left: 10,
+        //       child: LikeButton(like: snap.data ?? Like(), onTap: _viewModel.sendLike,)
+        //     );
+        //   },
+        // ),
       ],
     );
   }

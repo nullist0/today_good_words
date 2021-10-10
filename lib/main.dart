@@ -2,42 +2,36 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-import 'package:todaygoodwords/model/data/users.dart';
-import 'package:todaygoodwords/model/repository/user_repository.dart';
+import 'package:todaygoodwords/phrases/phrase_bloc.dart';
+import 'package:todaygoodwords/phrases/repositories/phrase_firebase_repository.dart';
 import 'package:todaygoodwords/view/layout/word.dart';
 
-void main() {
-  runApp(TodayGoodWords());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  var phraseBloc = PhraseBloc(PhraseFirebaseRepository(DateTime.now()));
+  runApp(TodayGoodWords(phraseBloc: phraseBloc,));
 }
 
 class TodayGoodWords extends StatelessWidget {
-  final UserRepository _repository = UserRepositoryImpl();
+  final PhraseBloc _phraseBloc;
+  // final UserRepository _repository = UserRepositoryImpl();
 
-  Future<void> _initialize() {
-    //SET Orientation
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
-    //SET FullScreen
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-
-    return Firebase.initializeApp().then((_) => _repository.login());
-  }
+  TodayGoodWords({Key? key, required PhraseBloc phraseBloc})
+      : _phraseBloc = phraseBloc, super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initialize(),
-      builder: (context, snapshot) {
-        return StreamProvider<User?>(
-          initialData: null,
-          create: (_) => _repository.read(),
-          child: MaterialApp(
-            home: Scaffold(
-              body: WordLandscape()
-            ),
-          ),
-        );
-      }
+    //SET Orientation
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+    //SET FullScreen
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+
+    return MaterialApp(
+        home: Scaffold(
+          body: WordLandscape(phraseBloc: _phraseBloc,)
+        ),
     );
   }
 }
