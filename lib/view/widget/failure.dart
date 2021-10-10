@@ -13,7 +13,7 @@ class FailureWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: Text(
-                  '불러오기 실패했습니다.',
+                  '불러오는데 실패했습니다.',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.black, fontSize: 30)
               ),

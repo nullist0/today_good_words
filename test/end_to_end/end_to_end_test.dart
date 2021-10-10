@@ -18,7 +18,13 @@ void goodWordTestGroup() {
       await app.startApp(tester);
       app.displayLoading();
     });
-    
+
+    testWidgets('display failed message when phrase is not loaded', (tester) async {
+      app = ApplicationRunner(PhraseBloc(phraseRepositoryOccurErrorWhileReading()));
+      await app.startApp(tester);
+      app.displayFailure();
+    });
+
     testWidgets('display correct phrase when phrase is loaded', (tester) async {
       var phrase = Phrase('name', 'text');
       app = ApplicationRunner(PhraseBloc(phraseRepositoryReadingOne(phrase)));

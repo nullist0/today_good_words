@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todaygoodwords/phrases/phrase.dart';
 import 'package:todaygoodwords/phrases/phrase_bloc.dart';
+import 'package:todaygoodwords/view/widget/failure.dart';
 import 'package:todaygoodwords/view/widget/loading.dart';
 import 'package:todaygoodwords/view/widget/phrase.dart';
 
@@ -53,6 +54,9 @@ class _WordLandscapeState extends State<WordLandscape> {
             if (snapshot.hasData) {
               var phrase = snapshot.data!;
               return PhraseWidget(phrase: phrase);
+            }
+            if (snapshot.hasError) {
+              return FailureWidget();
             }
             return LoadingWidget();
           }

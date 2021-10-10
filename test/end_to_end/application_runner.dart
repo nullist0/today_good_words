@@ -22,4 +22,8 @@ class ApplicationRunner {
     expect(find.text(phrase.name), findsOneWidget);
     expect(find.textContaining(phrase.text), findsOneWidget);
   }
+
+  void displayFailure() {
+    expect(find.text('불러오는데 실패했습니다.'), findsOneWidget);
+  }
 }

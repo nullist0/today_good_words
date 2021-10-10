@@ -14,6 +14,15 @@ PhraseRepository phraseRepositoryReadingNothing() {
 }
 
 @GenerateMocks([PhraseRepository])
+PhraseRepository phraseRepositoryOccurErrorWhileReading() {
+  var repository = MockPhraseRepository();
+
+  when(repository.read()).thenAnswer((_) => Stream.error(Exception()));
+
+  return repository;
+}
+
+@GenerateMocks([PhraseRepository])
 PhraseRepository phraseRepositoryReadingOne(final Phrase phrase) {
   var repository = MockPhraseRepository();
 
