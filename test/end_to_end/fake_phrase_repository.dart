@@ -2,31 +2,31 @@ import 'package:mockito/annotations.dart';
 import 'package:todaygoodwords/phrases/phrase.dart';
 import 'package:todaygoodwords/phrases/phrase_repository.dart';
 import 'package:mockito/mockito.dart';
-import 'phrase_repository.mocks.dart';
+import 'fake_phrase_repository.mocks.dart';
 
 @GenerateMocks([PhraseRepository])
-PhraseRepository phraseRepositoryReadingNothing() {
-  var repository = MockPhraseRepository();
+extension FakePhraseRepository on PhraseRepository {
+  static PhraseRepository readingNothing() {
+    var repository = MockPhraseRepository();
 
-  when(repository.read()).thenAnswer((_) => Stream.empty());
+    when(repository.read()).thenAnswer((_) => Stream.empty());
 
-  return repository;
-}
+    return repository;
+  }
 
-@GenerateMocks([PhraseRepository])
-PhraseRepository phraseRepositoryOccurErrorWhileReading() {
-  var repository = MockPhraseRepository();
+  static PhraseRepository occurErrorWhileReading() {
+    var repository = MockPhraseRepository();
 
-  when(repository.read()).thenAnswer((_) => Stream.error(Exception()));
+    when(repository.read()).thenAnswer((_) => Stream.error(Exception()));
 
-  return repository;
-}
+    return repository;
+  }
 
-@GenerateMocks([PhraseRepository])
-PhraseRepository phraseRepositoryReadingOne(final Phrase phrase) {
-  var repository = MockPhraseRepository();
+  static PhraseRepository readingOne(final Phrase phrase) {
+    var repository = MockPhraseRepository();
 
-  when(repository.read()).thenAnswer((_) => Stream.value(phrase));
+    when(repository.read()).thenAnswer((_) => Stream.value(phrase));
 
-  return repository;
+    return repository;
+  }
 }

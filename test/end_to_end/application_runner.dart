@@ -3,13 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:todaygoodwords/main.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_theme.dart';
 import 'package:todaygoodwords/phrases/phrase.dart';
-import 'package:todaygoodwords/phrases/phrase_bloc.dart';
+import 'package:todaygoodwords/view/state/phrase_state_bloc.dart';
 
 class ApplicationRunner {
   final Widget _app;
   
-  ApplicationRunner(PhraseBloc phraseBloc, PhraseThemeBloc phraseThemeBloc)
-      : _app = TodayGoodWords(phraseBloc: phraseBloc, phraseThemeBloc: phraseThemeBloc);
+  ApplicationRunner(PhraseStateBloc phraseStateBloc)
+      : _app = TodayGoodWords(phraseStateBloc: phraseStateBloc,);
   
   Future<void> startApp(final WidgetTester tester) async {
     await tester.pumpWidget(_app);
@@ -30,11 +30,11 @@ class ApplicationRunner {
     var name = tester.firstWidget(nameFinder) as Text;
     var text = tester.firstWidget(textFinder) as Text;
 
-    expect(name.style?.fontSize, phraseTheme.name.fontSize);
-    expect(text.style?.fontSize, phraseTheme.text.fontSize);
+    expect(name.style?.fontSize, phraseTheme.name.size);
+    expect(text.style?.fontSize, phraseTheme.text.size);
 
-    expect(name.style?.color, Color(phraseTheme.name.color));
-    expect(text.style?.color, Color(phraseTheme.text.color));
+    expect(name.style?.color, phraseTheme.name.color);
+    expect(text.style?.color, phraseTheme.text.color);
   }
 
   void displayFailure() {

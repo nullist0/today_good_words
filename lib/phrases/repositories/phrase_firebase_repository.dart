@@ -13,10 +13,10 @@ class PhraseFirebaseRepository implements PhraseRepository {
         .collection('phrases')
         .doc(_date.toDateString())
         .snapshots()
-        .map((event) => _fromSnapshot(_date, event));
+        .map(_fromDocument);
   }
 
-  Phrase _fromSnapshot(DateTime date, DocumentSnapshot<Map<String, dynamic>> doc) {
+  Phrase _fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
     final Map<String, dynamic> data = doc.data() ?? {};
     return Phrase(
       data['name'],

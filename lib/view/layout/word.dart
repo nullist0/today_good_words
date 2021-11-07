@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:todaygoodwords/phrases/phrase.dart';
-import 'package:todaygoodwords/phrases/phrase_bloc.dart';
-import 'package:todaygoodwords/view/widget/failure.dart';
-import 'package:todaygoodwords/view/widget/loading.dart';
-import 'package:todaygoodwords/view/widget/phrase.dart';
+import 'package:todaygoodwords/view/component/failure.dart';
+import 'package:todaygoodwords/view/component/loading.dart';
+import 'package:todaygoodwords/view/component/phrase.dart';
+import 'package:todaygoodwords/view/state/phrase_state.dart';
+import 'package:todaygoodwords/view/state/phrase_state_bloc.dart';
 
 class WordLandscape extends StatefulWidget {
-  final PhraseBloc _phraseBloc;
+  final PhraseStateBloc _phraseStateBloc;
 
-  const WordLandscape({Key? key, required PhraseBloc phraseBloc})
-      : _phraseBloc = phraseBloc, super(key: key);
+  const WordLandscape({Key? key, required PhraseStateBloc phraseStateBloc})
+      : _phraseStateBloc = phraseStateBloc, super(key: key);
 
   @override
   _WordLandscapeState createState() => _WordLandscapeState();
@@ -48,12 +48,12 @@ class _WordLandscapeState extends State<WordLandscape> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        StreamBuilder<Phrase>(
-          stream: widget._phraseBloc.read(),
+        StreamBuilder<PhraseState>(
+          stream: widget._phraseStateBloc.states(),
           builder: (_, snapshot) {
             if (snapshot.hasData) {
-              var phrase = snapshot.data!;
-              return PhraseWidget(phrase: phrase);
+              var phraseState = snapshot.data!;
+              return PhraseWidget(phraseState: phraseState);
             }
             if (snapshot.hasError) {
               return FailureWidget();
