@@ -11,11 +11,11 @@ class ApplicationRunner {
   final Widget _app;
 
   ApplicationRunner(PhraseStateBloc phraseStateBloc, LikeStateBloc likeStateBloc)
-      : _app = TodayGoodWords(phraseStateBloc: phraseStateBloc, likeStateBloc: likeStateBloc);
+      : _app = TodayGoodWords(phraseStateBloc: phraseStateBloc, likeStateAdapter: likeStateBloc);
 
   Future<void> startApp(final WidgetTester tester) async {
     await tester.pumpWidget(_app);
-    await tester.pump(Duration.zero);
+    await tester.pumpAndSettle();
   }
 
   void displayLoading() {
@@ -44,11 +44,11 @@ class ApplicationRunner {
   }
 
   void displayLike(final Like like) {
-    expect(find.bySemanticsLabel('Like'), findsOneWidget);
+    expect(find.bySemanticsLabel(RegExp(r'Like')), findsOneWidget);
     expect(find.text(like.count.toString()), findsOneWidget);
   }
 
   void notDisplayLike() {
-    expect(find.bySemanticsLabel('Like'), findsNothing);
+    expect(find.bySemanticsLabel(RegExp(r'Like')), findsNothing);
   }
 }

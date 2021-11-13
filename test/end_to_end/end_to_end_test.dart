@@ -24,7 +24,6 @@ void main() {
       var likeStateBloc = LikeStateBloc(
         FakeLikeRepository.doNothing()
       );
-
       app = ApplicationRunner(phraseStateBloc, likeStateBloc);
 
       await app.startApp(tester);
@@ -40,7 +39,6 @@ void main() {
       var likeStateBloc = LikeStateBloc(
           FakeLikeRepository.doNothing()
       );
-
       app = ApplicationRunner(phraseStateBloc, likeStateBloc);
 
       await app.startApp(tester);
@@ -59,7 +57,6 @@ void main() {
       var likeStateBloc = LikeStateBloc(
           FakeLikeRepository.readingOne(like)
       );
-
       app = ApplicationRunner(phraseStateBloc, likeStateBloc);
 
       await app.startApp(tester);

@@ -17,7 +17,7 @@ extension FakePhraseRepository on PhraseRepository {
   static PhraseRepository occurErrorWhileReading() {
     var repository = MockPhraseRepository();
 
-    when(repository.read()).thenAnswer((_) => Stream.error(Exception()));
+    when(repository.read()).thenAnswer((_) => Stream.error(Exception('error')));
 
     return repository;
   }

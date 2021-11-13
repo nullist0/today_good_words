@@ -18,6 +18,6 @@ class PhraseStateBloc {
     var phraseThemes = _phraseThemeRepository.read();
     return CombineLatestStream.combine2(phrases, phraseThemes,
             (Phrase phrase, PhraseTheme theme) => PhraseState(phrase, theme)
-    );
+    ).doOnError((exception, stacktrace) { print(exception); print(stacktrace); });
   }
 }

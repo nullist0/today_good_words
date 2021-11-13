@@ -1,4 +1,4 @@
-import 'package:async/async.dart';
+import 'package:rxdart/streams.dart';
 import 'package:todaygoodwords/likes/like.dart';
 import 'package:todaygoodwords/likes/like_repository.dart';
 import 'package:todaygoodwords/users/user_uid.dart';
@@ -24,7 +24,7 @@ class LikeFirebaseRepository implements LikeRepository {
       return transaction
           .get(ref)
           .then((value) => value.exists)
-          .then((value) => value ? ref.delete() : ref.set({}));
+          .then((value) => value ? ref.delete() : ref.set(<String, dynamic>{}));
     });
   }
 
@@ -45,10 +45,10 @@ class LikeFirebaseRepository implements LikeRepository {
   Stream<Like> read() {
     return userUIDRepository
         .read()
-        .asyncExpand((userUID) => StreamZip([
+        .asyncExpand((userUID) => CombineLatestStream.combine2(
           _isLike(userUID),
-          _count()
-        ])
-        .map((event) => Like(event[0] as bool, event[1] as int)));
+          _count(),
+            (bool isLiked, int count) => Like(isLiked, count))
+        );
   }
 }

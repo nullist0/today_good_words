@@ -1,9 +1,9 @@
 class Like{
-  final bool isLike;
+  final bool isLiked;
   final int count;
 
   Like(
-    this.isLike,
+    this.isLiked,
     this.count
   );
 }

@@ -26,6 +26,8 @@ class PhraseThemeFirebaseRepository implements PhraseThemeRepository {
   }
 
   PhraseStyle _fromMap(Map<String, dynamic> data) {
-    return PhraseStyle(data['size'], Color(data['color']));
+    final num size = data['size'];
+    final String colorCode = data['color'];
+    return PhraseStyle(size.toDouble(), Color(int.parse(colorCode, radix:16)));
   }
 }
