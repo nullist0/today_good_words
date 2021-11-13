@@ -18,37 +18,50 @@ void main() {
           FakePhraseRepository.readingNothing(),
           FakePhraseThemeRepository.readingNothing()
       );
+      var likeStateBloc = LikeStateBloc(
+        LikeRepository.doNothing()
+      );
 
-      app = ApplicationRunner(phraseStateBloc);
+      app = ApplicationRunner(phraseStateBloc, likeStateBloc);
 
       await app.startApp(tester);
       app.displayLoading();
+      app.notDisplayLike();
     });
 
     testWidgets('display failed message when phrase is not loaded', (tester) async {
-      var phraseBloc = PhraseStateBloc(
+      var phraseStateBloc = PhraseStateBloc(
           FakePhraseRepository.occurErrorWhileReading(),
           FakePhraseThemeRepository.occurErrorWhileReading()
       );
+      var likeStateBloc = LikeStateBloc(
+          LikeRepository.doNothing()
+      );
 
-      app = ApplicationRunner(phraseBloc);
+      app = ApplicationRunner(phraseStateBloc, likeStateBloc);
 
       await app.startApp(tester);
       app.displayFailure();
+      app.notDisplayLike();
     });
 
     testWidgets('display correct phrase when phrase is loaded', (tester) async {
       var phrase = Phrase('name', 'text');
       var phraseTheme = PhraseTheme(PhraseStyle(10.0, Colors.black), PhraseStyle(18.0, Colors.grey));
+      var like = Like(30);
       var phraseStateBloc = PhraseStateBloc(
           FakePhraseRepository.readingOne(phrase),
           FakePhraseThemeRepository.readingOne(phraseTheme)
       );
+      var likeStateBloc = LikeStateBloc(
+          LikeRepository.readOnly(like)
+      );
 
-      app = ApplicationRunner(phraseStateBloc);
+      app = ApplicationRunner(phraseStateBloc, likeStateBloc);
 
       await app.startApp(tester);
       app.displayPhrase(tester, phrase, phraseTheme);
+      app.displayLike(like);
     });
   });
 }

@@ -7,10 +7,10 @@ import 'package:todaygoodwords/view/state/phrase_state_bloc.dart';
 
 class ApplicationRunner {
   final Widget _app;
-  
-  ApplicationRunner(PhraseStateBloc phraseStateBloc)
-      : _app = TodayGoodWords(phraseStateBloc: phraseStateBloc,);
-  
+
+  ApplicationRunner(PhraseStateBloc phraseStateBloc, LikeStateBloc likeStateBloc)
+      : _app = TodayGoodWords(phraseStateBloc: phraseStateBloc, likeStateBloc: likeStateBloc);
+
   Future<void> startApp(final WidgetTester tester) async {
     await tester.pumpWidget(_app);
     await tester.pump(Duration.zero);
@@ -39,5 +39,14 @@ class ApplicationRunner {
 
   void displayFailure() {
     expect(find.text('불러오는데 실패했습니다.'), findsOneWidget);
+  }
+
+  void displayLike(final Like like) {
+    expect(find.bySemanticsLabel('Like'), findsOneWidget);
+    expect(find.text(like.count), findsOneWidget);
+  }
+
+  void notDisplayLike() {
+    expect(find.bySemanticsLabel('Like'), findsNothing);
   }
 }
