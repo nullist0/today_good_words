@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:todaygoodwords/likes/like.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_style.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_theme.dart';
 import 'package:todaygoodwords/phrases/phrase.dart';
-import 'package:todaygoodwords/view/state/phrase_state_bloc.dart';
+import 'package:todaygoodwords/view/state/likes/like_state_bloc.dart';
+import 'package:todaygoodwords/view/state/phrases/phrase_state_bloc.dart';
 
 import 'application_runner.dart';
+import 'fake_like_repository.dart';
 import 'fake_phrase_repository.dart';
 import 'fake_phrase_theme_repository.dart';
 
@@ -19,7 +22,7 @@ void main() {
           FakePhraseThemeRepository.readingNothing()
       );
       var likeStateBloc = LikeStateBloc(
-        LikeRepository.doNothing()
+        FakeLikeRepository.doNothing()
       );
 
       app = ApplicationRunner(phraseStateBloc, likeStateBloc);
@@ -35,7 +38,7 @@ void main() {
           FakePhraseThemeRepository.occurErrorWhileReading()
       );
       var likeStateBloc = LikeStateBloc(
-          LikeRepository.doNothing()
+          FakeLikeRepository.doNothing()
       );
 
       app = ApplicationRunner(phraseStateBloc, likeStateBloc);
@@ -48,13 +51,13 @@ void main() {
     testWidgets('display correct phrase when phrase is loaded', (tester) async {
       var phrase = Phrase('name', 'text');
       var phraseTheme = PhraseTheme(PhraseStyle(10.0, Colors.black), PhraseStyle(18.0, Colors.grey));
-      var like = Like(30);
+      var like = Like(false, 30);
       var phraseStateBloc = PhraseStateBloc(
           FakePhraseRepository.readingOne(phrase),
           FakePhraseThemeRepository.readingOne(phraseTheme)
       );
       var likeStateBloc = LikeStateBloc(
-          LikeRepository.readOnly(like)
+          FakeLikeRepository.readingOne(like)
       );
 
       app = ApplicationRunner(phraseStateBloc, likeStateBloc);

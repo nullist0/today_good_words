@@ -5,7 +5,7 @@ import 'package:todaygoodwords/phrase_themes/phrase_theme.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_theme_repository.dart';
 import 'package:todaygoodwords/phrases/phrase.dart';
 import 'package:todaygoodwords/phrases/phrase_repository.dart';
-import 'package:todaygoodwords/view/state/phrase_state.dart';
+import 'package:todaygoodwords/view/state/phrases/phrase_state.dart';
 
 class PhraseStateBloc {
   final PhraseRepository _phraseRepository;

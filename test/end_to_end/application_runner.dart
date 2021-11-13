@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:todaygoodwords/likes/like.dart';
 import 'package:todaygoodwords/main.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_theme.dart';
 import 'package:todaygoodwords/phrases/phrase.dart';
-import 'package:todaygoodwords/view/state/phrase_state_bloc.dart';
+import 'package:todaygoodwords/view/state/likes/like_state_bloc.dart';
+import 'package:todaygoodwords/view/state/phrases/phrase_state_bloc.dart';
 
 class ApplicationRunner {
   final Widget _app;
@@ -43,7 +45,7 @@ class ApplicationRunner {
 
   void displayLike(final Like like) {
     expect(find.bySemanticsLabel('Like'), findsOneWidget);
-    expect(find.text(like.count), findsOneWidget);
+    expect(find.text(like.count.toString()), findsOneWidget);
   }
 
   void notDisplayLike() {

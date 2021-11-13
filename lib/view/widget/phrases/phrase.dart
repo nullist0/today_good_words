@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todaygoodwords/view/state/phrase_state.dart';
+import 'package:todaygoodwords/view/state/phrases/phrase_state.dart';
 
 class PhraseWidget extends StatelessWidget {
   final PhraseState _phraseState;

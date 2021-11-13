@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:todaygoodwords/view/component/failure.dart';
-import 'package:todaygoodwords/view/component/loading.dart';
-import 'package:todaygoodwords/view/component/phrase.dart';
-import 'package:todaygoodwords/view/state/phrase_state.dart';
-import 'package:todaygoodwords/view/state/phrase_state_bloc.dart';
+import 'package:todaygoodwords/view/widget/phrases/failure.dart';
+import 'package:todaygoodwords/view/widget/phrases/loading.dart';
+import 'package:todaygoodwords/view/widget/phrases/phrase.dart';
+import 'package:todaygoodwords/view/state/phrases/phrase_state.dart';
+import 'package:todaygoodwords/view/state/phrases/phrase_state_bloc.dart';
 
 class WordLandscape extends StatefulWidget {
   final PhraseStateBloc _phraseStateBloc;

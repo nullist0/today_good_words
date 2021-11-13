@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todaygoodwords/model/data/likes.dart';
+import 'package:todaygoodwords/likes/like.dart';
 
 class LikeButton extends StatelessWidget {
   final Like like;
@@ -19,7 +19,7 @@ class LikeButton extends StatelessWidget {
               : Icon(Icons.favorite_border, size: 30,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Text('${like.likeCount}',
+            child: Text('${like.count}',
               style: TextStyle(
                 fontSize: 18
               ),

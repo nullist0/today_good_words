@@ -3,7 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_theme_repository.dart';
 import 'package:todaygoodwords/phrases/phrase_repository.dart';
-import 'package:todaygoodwords/view/state/phrase_state_bloc.dart';
+import 'package:todaygoodwords/view/state/phrases/phrase_state_bloc.dart';
 
 import 'phrase_state_bloc_test.mocks.dart';
 
