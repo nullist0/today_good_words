@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:todaygoodwords/likes/like_repository.dart';
-import 'package:todaygoodwords/view/state/likes/like_state_bloc.dart';
+import 'package:todaygoodwords/view/state/likes/blocs/like_state_bloc.dart';
 
 import 'like_state_bloc_test.mocks.dart';
 

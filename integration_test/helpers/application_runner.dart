@@ -1,20 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:todaygoodwords/likes/like.dart';
-import 'package:todaygoodwords/main.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_theme.dart';
 import 'package:todaygoodwords/phrases/phrase.dart';
-import 'package:todaygoodwords/view/state/likes/like_state_bloc.dart';
-import 'package:todaygoodwords/view/state/phrases/phrase_state_bloc.dart';
+import 'package:todaygoodwords/main.dart' as app;
+
+DateTime currentWithoutData = DateTime(1990, 1, 1);
+DateTime currentWithData = DateTime(2006, 10, 1);
 
 class ApplicationRunner {
-  final Widget _app;
+  Future<void> startTestFirebase() async {
+    await Firebase.initializeApp();
+    FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+    FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  }
 
-  ApplicationRunner(PhraseStateBloc phraseStateBloc, LikeStateBloc likeStateBloc)
-      : _app = TodayGoodWords(phraseStateBloc: phraseStateBloc, likeStateAdapter: likeStateBloc);
+  Future<void> startApp(final WidgetTester tester, [DateTime? current]) async {
+    await app.main(current != null ? <String>[current.toString()] : <String>[]);
 
-  Future<void> startApp(final WidgetTester tester) async {
-    await tester.pumpWidget(_app);
+    await tester.pumpAndSettle();
+    await tester.idle();
     await tester.pumpAndSettle();
   }
 
@@ -43,12 +51,20 @@ class ApplicationRunner {
     expect(find.text('불러오는데 실패했습니다.'), findsOneWidget);
   }
 
+  Finder _likeWidgetFinder() => find.bySemanticsLabel(RegExp(r'Like'));
+
   void displayLike(final Like like) {
-    expect(find.bySemanticsLabel(RegExp(r'Like')), findsOneWidget);
+    expect(_likeWidgetFinder(), findsOneWidget);
     expect(find.text(like.count.toString()), findsOneWidget);
   }
 
   void notDisplayLike() {
-    expect(find.bySemanticsLabel(RegExp(r'Like')), findsNothing);
+    expect(_likeWidgetFinder(), findsNothing);
+  }
+
+  Future<void> switchLike(final WidgetTester tester) async {
+    await tester.tap(_likeWidgetFinder());
+    await tester.idle();
+    await tester.pumpAndSettle();
   }
 }

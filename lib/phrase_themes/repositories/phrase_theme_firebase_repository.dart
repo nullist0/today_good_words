@@ -1,21 +1,25 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:todaygoodwords/date_strings/date_string.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_style.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_theme.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_theme_repository.dart';
-import 'package:todaygoodwords/util/date.dart';
 
 class PhraseThemeFirebaseRepository implements PhraseThemeRepository {
-  final DateTime _date;
+  final DateString _date;
+  final FirebaseFirestore _firestore;
 
-  PhraseThemeFirebaseRepository(this._date);
+  PhraseThemeFirebaseRepository(this._date, this._firestore);
 
+  String get _phraseThemeCollectionPath => 'phrase_themes';
+  String get _phraseThemeDocumentPath => _date.toString();
+  
   @override
   Stream<PhraseTheme> read() {
-    return FirebaseFirestore.instance
-        .collection('phrase_themes')
-        .doc(_date.toDateString())
+    return _firestore
+        .collection(_phraseThemeCollectionPath)
+        .doc(_phraseThemeDocumentPath)
         .snapshots()
         .map(_fromDocument);
   }
