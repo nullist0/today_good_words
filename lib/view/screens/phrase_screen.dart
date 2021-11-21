@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:todaygoodwords/view/state/likes/like_state_adapter.dart';
+import 'package:todaygoodwords/view/state/phrase_images/phrase_image_adapter.dart';
 import 'package:todaygoodwords/view/state/phrase_screen/phrase_screen_state.dart';
 import 'package:todaygoodwords/view/state/phrase_screen/wrappers/phrase_screen_state_wrapper.dart';
 import 'package:todaygoodwords/view/state/phrases/phrase_state_adapter.dart';
@@ -8,17 +9,23 @@ import 'package:todaygoodwords/view/widget/likes/like.dart';
 import 'package:todaygoodwords/view/widget/phrases/failure.dart';
 import 'package:todaygoodwords/view/widget/phrases/loading.dart';
 import 'package:todaygoodwords/view/widget/phrases/phrase.dart';
+import 'package:todaygoodwords/view/widget/share/share.dart';
 
 class PhraseScreen extends StatelessWidget {
+  final GlobalKey _phraseKey = GlobalKey();
+
   final PhraseStateAdapter _phraseStateAdapter;
   final LikeStateAdapter _likeStateAdapter;
+  final PhraseImageAdapter _phraseImageAdapter;
 
-  const PhraseScreen({
+  PhraseScreen({
     Key? key,
     required PhraseStateAdapter phraseStateAdapter,
     required LikeStateAdapter likeStateAdapter,
+    required PhraseImageAdapter phraseImageAdapter,
   }) : _phraseStateAdapter = phraseStateAdapter,
         _likeStateAdapter = likeStateAdapter,
+        _phraseImageAdapter = phraseImageAdapter,
         super(key: key);
 
   @override
@@ -37,26 +44,31 @@ class PhraseScreen extends StatelessWidget {
           var phraseState = screenState.phraseState;
           var likeState = screenState.likeState;
 
-          return Stack(
-            children: <Widget>[
-              PhraseWidget(phraseState: phraseState),
-              Positioned(
-                bottom: 20,
-                left: 10,
-                child: LikeWidget(
-                  likeState: likeState,
-                  switchLike: _likeStateAdapter.switchLike,
+          return RepaintBoundary(
+            key: _phraseKey,
+            child: Stack(
+              children: <Widget>[
+                PhraseWidget(phraseState: phraseState),
+                Positioned(
+                  bottom: 20,
+                  left: 10,
+                  child: LikeWidget(
+                    likeState: likeState,
+                    switchLike: _likeStateAdapter.switchLike,
+                  ),
                 ),
-              ),
-              // Positioned(
-              //   top: 20, left: 10,
-              //   child: ShareButton(onTap: _share,),
-              // ),
-            ]
+                Positioned(
+                  top: 20, left: 10,
+                  child: ShareButton(
+                    sharePhraseImage: () => _phraseImageAdapter.share(_phraseKey),
+                  ),
+                ),
+              ],
+            ),
           );
         }
         return LoadingWidget();
-      }
+      },
     );
   }
 }

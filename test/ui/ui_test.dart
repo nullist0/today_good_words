@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:todaygoodwords/likes/like.dart';
-import 'package:todaygoodwords/main.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_style.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_theme.dart';
 import 'package:todaygoodwords/phrases/phrase.dart';
-import 'package:todaygoodwords/shares/share_adapter.dart';
 import 'package:todaygoodwords/view/state/likes/like_state.dart';
 import 'package:todaygoodwords/view/state/likes/like_state_adapter.dart';
+import 'package:todaygoodwords/view/state/phrase_images/phrase_image_adapter.dart';
 import 'package:todaygoodwords/view/state/phrases/phrase_state.dart';
 import 'package:todaygoodwords/view/state/phrases/phrase_state_adapter.dart';
+import 'package:todaygoodwords/view/today_good_words_app.dart';
 
 import 'fake_adapters/fake_like_state_adapter.dart';
 import 'fake_adapters/fake_phrase_state_adapter.dart';
-import 'fake_adapters/fake_share_adapter.dart';
+import 'fake_adapters/fake_phrase_image_adapter.dart';
+import 'fake_adapters/fake_phrase_image_adapter.mocks.dart';
 
 Finder _likeWidget() => find.bySemanticsLabel(RegExp(r'Like'));
+Finder _shareWidget() => find.bySemanticsLabel(RegExp(r'Share'));
 Finder _loadingWidget() => find.text('불러오는 중입니다.');
 Finder _failureWidget() => find.text('불러오는데 실패했습니다.');
 
@@ -46,18 +48,18 @@ void main() {
   group('ui tests without loading phrase', () {
     late PhraseStateAdapter phraseStateAdapter;
     late LikeStateAdapter likeStateAdapter;
-    late ShareAdapter shareAdapter;
+    late PhraseImageAdapter phraseImageAdapter;
     late Widget app;
 
     testWidgets('display loading message when phrase is loading', (tester) async {
       // given
       phraseStateAdapter = FakePhraseStateAdapter.doNothing();
       likeStateAdapter = FakeLikeStateAdapter.doNothing();
-      shareAdapter = FakeShareAdapter.fake();
-      app = TodayGoodWords(
+      phraseImageAdapter = FakePhraseImageAdapter.fake();
+      app = TodayGoodWordsApp(
         phraseStateAdapter: phraseStateAdapter,
         likeStateAdapter: likeStateAdapter,
-        shareAdapter: shareAdapter,
+        phraseImageAdapter: phraseImageAdapter,
       );
 
       // when
@@ -73,11 +75,11 @@ void main() {
       // given
       phraseStateAdapter = FakePhraseStateAdapter.hasError();
       likeStateAdapter = FakeLikeStateAdapter.doNothing();
-      shareAdapter = FakeShareAdapter.fake();
-      app = TodayGoodWords(
+      phraseImageAdapter = FakePhraseImageAdapter.fake();
+      app = TodayGoodWordsApp(
         phraseStateAdapter: phraseStateAdapter,
         likeStateAdapter: likeStateAdapter,
-        shareAdapter: shareAdapter,
+        phraseImageAdapter: phraseImageAdapter,
       );
 
       // when
@@ -96,7 +98,7 @@ void main() {
     late Like like;
     late PhraseStateAdapter phraseStateAdapter;
     late LikeStateAdapter likeStateAdapter;
-    late ShareAdapter shareAdapter;
+    late PhraseImageAdapter phraseImageAdapter;
     late Widget app;
 
     setUp(() {
@@ -105,11 +107,11 @@ void main() {
       like = Like(false, 30);
       phraseStateAdapter = FakePhraseStateAdapter.hasData(PhraseState(phrase, phraseTheme));
       likeStateAdapter = FakeLikeStateAdapter.hasData(LikeState(like));
-      shareAdapter = FakeShareAdapter.fake();
-      app = TodayGoodWords(
+      phraseImageAdapter = FakePhraseImageAdapter.fake();
+      app = TodayGoodWordsApp(
         phraseStateAdapter: phraseStateAdapter,
         likeStateAdapter: likeStateAdapter,
-        shareAdapter: shareAdapter,
+        phraseImageAdapter: phraseImageAdapter,
       );
     });
 
@@ -141,11 +143,11 @@ void main() {
       // when
       await tester.pumpWidget(app);
       await tester.pumpAndSettle();
-      await tester.tap(_likeWidget());
+      await tester.tap(_shareWidget());
       await tester.pumpAndSettle();
 
       // then
-      verify(shareAdapter.share(any)).called(1);
+      verify((phraseImageAdapter as MockPhraseImageAdapter).share(any)).called(1);
     });
   });
 }
