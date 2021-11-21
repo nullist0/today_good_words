@@ -6,6 +6,7 @@ import 'package:todaygoodwords/main.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_style.dart';
 import 'package:todaygoodwords/phrase_themes/phrase_theme.dart';
 import 'package:todaygoodwords/phrases/phrase.dart';
+import 'package:todaygoodwords/shares/share_adapter.dart';
 import 'package:todaygoodwords/view/state/likes/like_state.dart';
 import 'package:todaygoodwords/view/state/likes/like_state_adapter.dart';
 import 'package:todaygoodwords/view/state/phrases/phrase_state.dart';
@@ -13,6 +14,7 @@ import 'package:todaygoodwords/view/state/phrases/phrase_state_adapter.dart';
 
 import 'fake_adapters/fake_like_state_adapter.dart';
 import 'fake_adapters/fake_phrase_state_adapter.dart';
+import 'fake_adapters/fake_share_adapter.dart';
 
 Finder _likeWidget() => find.bySemanticsLabel(RegExp(r'Like'));
 Finder _loadingWidget() => find.text('불러오는 중입니다.');
@@ -41,16 +43,22 @@ void _displayLike(final Like like) {
 }
 
 void main() {
-  group('tests without Firebase dependencies', () {
+  group('ui tests without loading phrase', () {
     late PhraseStateAdapter phraseStateAdapter;
     late LikeStateAdapter likeStateAdapter;
+    late ShareAdapter shareAdapter;
     late Widget app;
 
     testWidgets('display loading message when phrase is loading', (tester) async {
       // given
       phraseStateAdapter = FakePhraseStateAdapter.doNothing();
       likeStateAdapter = FakeLikeStateAdapter.doNothing();
-      app = TodayGoodWords(phraseStateAdapter: phraseStateAdapter, likeStateAdapter: likeStateAdapter);
+      shareAdapter = FakeShareAdapter.fake();
+      app = TodayGoodWords(
+        phraseStateAdapter: phraseStateAdapter,
+        likeStateAdapter: likeStateAdapter,
+        shareAdapter: shareAdapter,
+      );
 
       // when
       await tester.pumpWidget(app);
@@ -65,7 +73,12 @@ void main() {
       // given
       phraseStateAdapter = FakePhraseStateAdapter.hasError();
       likeStateAdapter = FakeLikeStateAdapter.doNothing();
-      app = TodayGoodWords(phraseStateAdapter: phraseStateAdapter, likeStateAdapter: likeStateAdapter);
+      shareAdapter = FakeShareAdapter.fake();
+      app = TodayGoodWords(
+        phraseStateAdapter: phraseStateAdapter,
+        likeStateAdapter: likeStateAdapter,
+        shareAdapter: shareAdapter,
+      );
 
       // when
       await tester.pumpWidget(app);
@@ -75,16 +88,34 @@ void main() {
       expect(_failureWidget(), findsOneWidget);
       expect(_likeWidget(), findsNothing);
     });
+  });
 
-    testWidgets('display correct phrase when phrase is loaded', (tester) async {
-      // when
-      var phrase = Phrase('name', 'text');
-      var phraseTheme = PhraseTheme(PhraseStyle(10.0, Colors.black), PhraseStyle(18.0, Colors.grey));
-      var like = Like(false, 30);
+  group('ui tests with loading phrase', () {
+    late Phrase phrase;
+    late PhraseTheme phraseTheme;
+    late Like like;
+    late PhraseStateAdapter phraseStateAdapter;
+    late LikeStateAdapter likeStateAdapter;
+    late ShareAdapter shareAdapter;
+    late Widget app;
+
+    setUp(() {
+      phrase = Phrase('name', 'text');
+      phraseTheme = PhraseTheme(PhraseStyle(10.0, Colors.black), PhraseStyle(18.0, Colors.grey));
+      like = Like(false, 30);
       phraseStateAdapter = FakePhraseStateAdapter.hasData(PhraseState(phrase, phraseTheme));
       likeStateAdapter = FakeLikeStateAdapter.hasData(LikeState(like));
-      app = TodayGoodWords(phraseStateAdapter: phraseStateAdapter, likeStateAdapter: likeStateAdapter);
+      shareAdapter = FakeShareAdapter.fake();
+      app = TodayGoodWords(
+        phraseStateAdapter: phraseStateAdapter,
+        likeStateAdapter: likeStateAdapter,
+        shareAdapter: shareAdapter,
+      );
+    });
 
+    testWidgets('display correct phrase when phrase is loaded', (tester) async {
+      // given
+      // when
       await tester.pumpWidget(app);
       await tester.pumpAndSettle();
 
@@ -93,15 +124,8 @@ void main() {
       _displayLike(like);
     });
 
-    testWidgets('touch like button then like repository must call once', (tester) async {
+    testWidgets('tap like button then like state adapter must be called once', (tester) async {
       // given
-      var phrase = Phrase('name', 'text');
-      var phraseTheme = PhraseTheme(PhraseStyle(10.0, Colors.black), PhraseStyle(18.0, Colors.grey));
-      var like = Like(false, 30);
-      phraseStateAdapter = FakePhraseStateAdapter.hasData(PhraseState(phrase, phraseTheme));
-      likeStateAdapter = FakeLikeStateAdapter.hasData(LikeState(like));
-      app = TodayGoodWords(phraseStateAdapter: phraseStateAdapter, likeStateAdapter: likeStateAdapter);
-
       // when
       await tester.pumpWidget(app);
       await tester.pumpAndSettle();
@@ -110,6 +134,18 @@ void main() {
 
       // then
       verify(likeStateAdapter.switchLike()).called(1);
+    });
+
+    testWidgets('tap share button then share adapter must called be once', (tester) async {
+      // given
+      // when
+      await tester.pumpWidget(app);
+      await tester.pumpAndSettle();
+      await tester.tap(_likeWidget());
+      await tester.pumpAndSettle();
+
+      // then
+      verify(shareAdapter.share(any)).called(1);
     });
   });
 }

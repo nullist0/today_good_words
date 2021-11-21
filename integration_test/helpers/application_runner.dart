@@ -51,19 +51,26 @@ class ApplicationRunner {
     expect(find.text('불러오는데 실패했습니다.'), findsOneWidget);
   }
 
-  Finder _likeWidgetFinder() => find.bySemanticsLabel(RegExp(r'Like'));
+  Finder _likeWidget() => find.bySemanticsLabel(RegExp(r'Like'));
+  Finder _shareWidget() => find.bySemanticsLabel(RegExp(r'Share'));
 
   void displayLike(final Like like) {
-    expect(_likeWidgetFinder(), findsOneWidget);
+    expect(_likeWidget(), findsOneWidget);
     expect(find.text(like.count.toString()), findsOneWidget);
   }
 
   void notDisplayLike() {
-    expect(_likeWidgetFinder(), findsNothing);
+    expect(_likeWidget(), findsNothing);
   }
 
   Future<void> switchLike(final WidgetTester tester) async {
-    await tester.tap(_likeWidgetFinder());
+    await tester.tap(_likeWidget());
+    await tester.idle();
+    await tester.pumpAndSettle();
+  }
+  
+  Future<void> sharePhraseImage(final WidgetTester tester) async {
+    await tester.tap(_shareWidget());
     await tester.idle();
     await tester.pumpAndSettle();
   }

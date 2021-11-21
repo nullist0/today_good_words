@@ -58,5 +58,14 @@ void main() {
       await runner.switchLike(tester);
       runner.displayLike(unliked);
     });
+
+    testWidgets('share button test when phrase is loaded', (tester) async {
+      await tester.runAsync(() async {
+        await runner.startTestFirebase();
+        await runner.startApp(tester, currentWithData);
+      });
+
+      await runner.sharePhraseImage(tester);
+    });
   });
 }
