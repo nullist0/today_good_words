@@ -10,6 +10,7 @@ class PhraseWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.orangeAccent,
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -23,7 +24,7 @@ class PhraseWidget extends StatelessWidget {
             ),
             Text(_phraseState.name,
               style: _phraseState.nameStyle,
-            )
+            ),
           ],
         ),
       ),
