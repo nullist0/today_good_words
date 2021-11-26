@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:todaygoodwords/view/state/likes/like_state_adapter.dart';
 import 'package:todaygoodwords/view/state/phrase_images/phrase_image_adapter.dart';
@@ -60,7 +61,11 @@ class PhraseScreen extends StatelessWidget {
                 Positioned(
                   top: 20, left: 10,
                   child: ShareButton(
-                    sharePhraseImage: () => _phraseImageAdapter.share(_phraseKey),
+                    sharePhraseImage: () async {
+                      final boundary = _phraseKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+                      final image = await boundary.toImage();
+                      await _phraseImageAdapter.share(image);
+                    },
                   ),
                 ),
               ],

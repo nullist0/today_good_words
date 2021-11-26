@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
 abstract class PhraseImageAdapter {
-  Future<void> share(GlobalKey key);
+  Future<void> share(final Image image);
 }

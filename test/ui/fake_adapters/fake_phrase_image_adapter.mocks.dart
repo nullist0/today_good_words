@@ -3,8 +3,8 @@
 // Do not manually edit this file.
 
 import 'dart:async' as _i3;
+import 'dart:ui' as _i4;
 
-import 'package:flutter/material.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:todaygoodwords/view/state/phrase_images/phrase_image_adapter.dart'
     as _i2;
@@ -28,8 +28,8 @@ class MockPhraseImageAdapter extends _i1.Mock
   }
 
   @override
-  _i3.Future<void> share(_i4.GlobalKey<_i4.State<_i4.StatefulWidget>>? key) =>
-      (super.noSuchMethod(Invocation.method(#share, [key]),
+  _i3.Future<void> share(_i4.Image? image) =>
+      (super.noSuchMethod(Invocation.method(#share, [image]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override

@@ -34,10 +34,11 @@ Future<void> main(List<String> args) async {
   var likeStateBloc = LikeStateBloc(likeRepository);
   var shareService = FiledShareService();
   var phraseImageBloc = PhraseImageBloc(shareService);
-
-  runApp(TodayGoodWordsApp(
+  var app = TodayGoodWordsApp(
     phraseStateAdapter: phraseStateBloc,
     likeStateAdapter: likeStateBloc,
     phraseImageAdapter: phraseImageBloc,
-  ));
+  );
+
+  runApp(app);
 }
