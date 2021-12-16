@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:todaygoodwords/likes/like.dart';
-import 'package:todaygoodwords/phrase_themes/phrase_theme.dart';
-import 'package:todaygoodwords/phrases/phrase.dart';
+import 'package:domain/likes/like.dart';
+import 'package:domain/phrases/phrase_theme.dart';
+import 'package:domain/phrases/phrase.dart';
 import 'package:todaygoodwords/main.dart' as app;
 
 DateTime currentWithoutData = DateTime(1990, 1, 1);

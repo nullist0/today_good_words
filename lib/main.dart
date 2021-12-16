@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:domain/date_strings/date_string.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_repository/like_firebase_repository.dart';
+import 'package:firebase_repository/phrase_firebase_repository.dart';
+import 'package:firebase_repository/phrase_theme_firebase_repository.dart';
+import 'package:firebase_repository/user_uid_firebase_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:todaygoodwords/date_strings/date_string.dart';
-import 'package:todaygoodwords/likes/repositories/like_firebase_repository.dart';
-import 'package:todaygoodwords/phrase_images/share_services/filed_share_service.dart';
-import 'package:todaygoodwords/phrase_themes/repositories/phrase_theme_firebase_repository.dart';
-import 'package:todaygoodwords/phrases/repositories/phrase_firebase_repository.dart';
-import 'package:todaygoodwords/users/repositories/user_uid_firebase_repository.dart';
-import 'package:todaygoodwords/view/state/likes/blocs/like_state_bloc.dart';
-import 'package:todaygoodwords/view/state/phrase_images/blocs/phrase_image_bloc.dart';
-import 'package:todaygoodwords/view/state/phrases/blocs/phrase_state_bloc.dart';
-import 'package:todaygoodwords/view/today_good_words_app.dart';
+import 'package:native_bloc/likes/like_state_native_bloc.dart';
+import 'package:native_bloc/phrase_images/phrase_image_native_bloc.dart';
+import 'package:native_bloc/phrases/phrase_native_bloc.dart';
+import 'package:todaygoodwords/share_services/filed_share_service.dart';
+import 'package:view/today_good_words_app.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,20 +24,19 @@ Future<void> main(List<String> args) async {
   else {
     dateString = DateString.now();
   }
-  dateString = DateString(DateTime(2020, 6, 1));
 
   var phraseRepository = PhraseFirebaseRepository(dateString, FirebaseFirestore.instance);
   var phraseThemeRepository = PhraseThemeFirebaseRepository(dateString, FirebaseFirestore.instance);
-  var phraseStateBloc = PhraseStateBloc(phraseRepository, phraseThemeRepository);
+  var phraseBloc = PhraseStateNativeBloc(phraseRepository, phraseThemeRepository);
   var userRepository = UserUIDFirebaseRepository(FirebaseAuth.instance);
   var likeRepository = LikeFirebaseRepository(dateString, userRepository, FirebaseFirestore.instance);
-  var likeStateBloc = LikeStateBloc(likeRepository);
+  var likeBloc = LikeStateNativeBloc(likeRepository);
   var shareService = FiledShareService();
-  var phraseImageBloc = PhraseImageBloc(shareService);
+  var phraseImageBloc = PhraseImageNativeBloc(shareService);
   var app = TodayGoodWordsApp(
-    phraseStateAdapter: phraseStateBloc,
-    likeStateAdapter: likeStateBloc,
-    phraseImageAdapter: phraseImageBloc,
+    phraseStateBloc: phraseBloc,
+    likeStateBloc: likeBloc,
+    phraseImageBloc: phraseImageBloc ,
   );
 
   runApp(app);
