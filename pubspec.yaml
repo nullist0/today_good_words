@@ -29,15 +29,15 @@ dependencies:
     path: firebase_repository
   native_bloc:
     path: native_bloc
+  filed_service:
+    path: filed_service
   view:
     path: view
   firebase_core: ^1.6.0
   firebase_analytics: ^8.3.2
   provider: ^6.0.1
   async: ^2.8.1
-  share_plus: ^3.0.4
   cupertino_icons: ^1.0.0
-  path_provider: ^2.0.7
 
 dev_dependencies:
   flutter_test:

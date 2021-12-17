@@ -232,6 +232,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
+  filed_service:
+    dependency: "direct main"
+    description:
+      path: filed_service
+      relative: true
+    source: path
+    version: "0.0.1"
   firebase:
     dependency: transitive
     description:
@@ -480,7 +487,7 @@ packages:
     source: hosted
     version: "1.8.0"
   path_provider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path_provider
       url: "https://pub.dartlang.org"
@@ -585,7 +592,7 @@ packages:
     source: hosted
     version: "0.27.3"
   share_plus:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: share_plus
       url: "https://pub.dartlang.org"

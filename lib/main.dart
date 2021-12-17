@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:native_bloc/likes/like_state_native_bloc.dart';
 import 'package:native_bloc/phrase_images/phrase_image_native_bloc.dart';
 import 'package:native_bloc/phrases/phrase_native_bloc.dart';
-import 'package:todaygoodwords/share_services/filed_share_service.dart';
+import 'package:filed_service/filed_share_service.dart';
 import 'package:view/today_good_words_app.dart';
 
 Future<void> main(List<String> args) async {
