@@ -21,12 +21,16 @@ flutter test
 
 ## Integration tests
 
-To run integration tests, build and run docker image as following.
+To run integration tests, run the docker image for the firebase emulator as following.
 
 ```shell
-export FIREBASE_TOKEN=${FIREBASE_TOKEN}
-docker build --build-arg FIREBASE_TOKEN=$FIREBASE_TOKEN -t firebase-emulator .
-docker run -d -p 8080:8080 -p 9099:9099 firebase-emulator
+docker run -d -p 8080:8080 -p 9099:9099 -p 4000:4000 nullist/today-good-words-firebase-emulator
+```
+
+If you want to build the docker image by yourself, run the following command.
+
+```shell
+docker build -t today-good-words-firebase-emulator .
 ```
 
 # Result
