@@ -33,6 +33,12 @@ If you want to build the docker image by yourself, run the following command.
 docker build -t today-good-words-firebase-emulator .
 ```
 
+The integration test can be tested by following command.
+
+```shell
+flutter test -d <device> integration_test
+```
+
 # Result
 
 ![Date Captured Screen](https://github.com/Lee-Null/TodayGoodWords/blob/master/capture/2020-06-01.png?raw=true)
