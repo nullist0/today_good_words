@@ -12,7 +12,7 @@ class FiledShareService implements ShareService {
     final file = File('${tempDir.path}/phrase.png');
 
     await file.create();
-    await file.writeAsBytes(image.data);
+    await file.writeAsBytes(image.uint8data());
     await Share.shareFiles([file.path]);
   }
 }

@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
 class PhraseImage {
-  final Uint8List data;
+  final List<int> data;
 
   PhraseImage(this.data);
+
+  Uint8List uint8data() => Uint8List.fromList(data);
 }

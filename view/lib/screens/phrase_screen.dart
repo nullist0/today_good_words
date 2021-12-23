@@ -5,10 +5,11 @@ import 'package:bloc/likes/like_state_bloc.dart';
 import 'package:bloc/phrases/phrase_state.dart';
 import 'package:bloc/phrases/phrase_state_bloc.dart';
 import 'package:domain/phrase_images/phrase_image_bloc.dart';
+import 'package:domain/phrase_images/phrase_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:view/state/phrase_screen_state.dart';
+import 'package:view/widget/common/screenshotable.dart';
 import 'package:view/widget/likes/like.dart';
 import 'package:view/widget/phrases/failure.dart';
 import 'package:view/widget/phrases/loading.dart';
@@ -16,8 +17,8 @@ import 'package:view/widget/phrases/phrase.dart';
 import 'package:view/widget/share/share.dart';
 
 class PhraseScreen extends StatelessWidget {
-  final GlobalKey _phraseKey = GlobalKey();
-
+  final ScreenshotController _screenshotController = ScreenshotController();
+  
   final PhraseStateBloc _phraseStateBloc;
   final LikeStateBloc _likeStateBloc;
   final PhraseImageBloc _phraseImageBloc;
@@ -33,9 +34,13 @@ class PhraseScreen extends StatelessWidget {
         super(key: key);
 
   Future<void> _share() async {
-    final boundary = _phraseKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
-    final image = await boundary.toImage();
-    await _phraseImageBloc.share(image);
+    final image = await _screenshotController.takeScreenshot();
+    final byteData = await image.toByteData();
+    if (byteData != null) {
+      final data = byteData.buffer.asUint8List().toList();
+      final phraseImage = PhraseImage(data);
+      await _phraseImageBloc.share(phraseImage);
+    }
   }
 
   @override
@@ -57,8 +62,8 @@ class PhraseScreen extends StatelessWidget {
           var phraseState = screenState.phraseState;
           var likeState = screenState.likeState;
 
-          return RepaintBoundary(
-            key: _phraseKey,
+          return Screenshotable(
+            controller: _screenshotController,
             child: Stack(
               children: <Widget>[
                 PhraseWidget(
