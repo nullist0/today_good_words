@@ -23,9 +23,6 @@ class PhraseFirebaseRepository implements PhraseRepository {
 
   Phrase _fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
     final Map<String, dynamic> data = doc.data() ?? {};
-    return Phrase(
-      data['name'],
-      data['text']
-    );
+    return Phrase.fromJson(data);
   }
 }

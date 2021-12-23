@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:domain/date_strings/date_string.dart';
-import 'package:domain/phrases/phrase_style.dart';
 import 'package:domain/phrases/phrase_theme.dart';
 import 'package:domain/phrases/phrase_theme_repository.dart';
 
@@ -26,12 +23,6 @@ class PhraseThemeFirebaseRepository implements PhraseThemeRepository {
 
   PhraseTheme _fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
     final Map<String, dynamic> data = doc.data() ?? {};
-    return PhraseTheme(_fromMap(data['name']), _fromMap(data['text']));
-  }
-
-  PhraseStyle _fromMap(Map<String, dynamic> data) {
-    final num size = data['size'];
-    final String colorCode = data['color'];
-    return PhraseStyle(size.toDouble(), Color(int.parse(colorCode, radix:16)));
+    return PhraseTheme.fromJson(data);
   }
 }
