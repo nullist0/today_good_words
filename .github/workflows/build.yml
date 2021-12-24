@@ -24,7 +24,7 @@ jobs:
           api-level: 29
           script: ./gradlew connectedCheck
       - name: run tests
-      - run: |
+        run: |
           dart pub global activate melos
           alias melos='dart pub global run melos'
           melos run test:all
