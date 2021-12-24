@@ -14,14 +14,14 @@ extension PhraseFakeFirestore on FirebaseFirestore {
 }
 
 void main() {
-  late FirebaseFirestore firestore;
+  late FirebaseFirestore firebaseFirestore;
   late DateString dateString;
   late PhraseFirebaseRepository phraseFirebaseRepository;
 
   setUp(() {
     dateString = DateString(DateTime.now());
-    firestore = FakeFirebaseFirestore();
-    phraseFirebaseRepository = PhraseFirebaseRepository(dateString, firestore);
+    firebaseFirestore = FakeFirebaseFirestore();
+    phraseFirebaseRepository = PhraseFirebaseRepository(dateString, firebaseFirestore);
   });
   
   test('phrase firebase repository reads from firestore', () async {
@@ -29,9 +29,10 @@ void main() {
     final phrase = Phrase('name', 'text');
 
     // when
-    await firestore.putPhrase(dateString, phrase);
+    await firebaseFirestore.putPhrase(dateString, phrase);
 
     // then
-    expectLater(phraseFirebaseRepository.read(), emits(phrase));
+    final phraseStream = phraseFirebaseRepository.read();
+    expectLater(phraseStream, emits(phrase));
   });
 }

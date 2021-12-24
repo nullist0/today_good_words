@@ -17,14 +17,14 @@ extension PhraseThemeFakeFirestore on FirebaseFirestore {
 }
 
 void main() {
-  late FirebaseFirestore firestore;
+  late FirebaseFirestore firebaseFirestore;
   late DateString dateString;
   late PhraseThemeFirebaseRepository phraseThemeFirebaseRepository;
 
   setUp(() {
     dateString = DateString(DateTime.now());
-    firestore = FakeFirebaseFirestore();
-    phraseThemeFirebaseRepository = PhraseThemeFirebaseRepository(dateString, firestore);
+    firebaseFirestore = FakeFirebaseFirestore();
+    phraseThemeFirebaseRepository = PhraseThemeFirebaseRepository(dateString, firebaseFirestore);
   });
   
   test('phrase theme firebase repository reads from firestore', () async {
@@ -34,7 +34,7 @@ void main() {
     final phraseTheme = PhraseTheme(namePhraseStyle, textPhraseStyle);
 
     // when
-    await firestore.putPhraseTheme(dateString, phraseTheme);
+    await firebaseFirestore.putPhraseTheme(dateString, phraseTheme);
 
     // then
     expectLater(phraseThemeFirebaseRepository.read(), emits(phraseTheme));

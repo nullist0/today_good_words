@@ -11,19 +11,20 @@ class UserUIDFirebaseRepository implements UserUIDRepository {
 
   @override
   Stream<UserUID> read() {
-    if (_firebaseAuth.currentUser == null) login();
-    return _firebaseAuth.userChanges().map((event) => UserUID(event?.uid ?? ""));
+    if (_firebaseAuth.currentUser == null) _login();
+    return _firebaseAuth
+        .authStateChanges()
+        .map((event) => UserUID(event?.uid ?? ""));
   }
 
   @override
   Future<UserUID> readCurrent() async {
-    if (_firebaseAuth.currentUser == null) await login();
+    if (_firebaseAuth.currentUser == null) await _login();
     var user = _firebaseAuth.currentUser;
     return UserUID(user?.uid ?? '');
   }
 
-  @override
-  Future<void> login() {
+  Future<void> _login() {
     return _firebaseAuth.signInAnonymously();
   }
 }
