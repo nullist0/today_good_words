@@ -20,10 +20,10 @@ scripts:
 
   test:all_coverage:
     run: |
-      melos exec -- "\$MELOS_ROOT_PATH/coverage_helper.sh $MELOS_PACKAGE_NAME --create" && \
+      melos exec -- "\$MELOS_ROOT_PATH/coverage_helper.sh \$MELOS_PACKAGE_NAME --create" && \
       melos run test:coverage --no-select && \
       melos exec -- "\$MELOS_ROOT_PATH/combine_coverage.sh" && \
-      melos exec -- "\$MELOS_ROOT_PATH/coverage_helper.sh $MELOS_PACKAGE_NAME --clean"
+      melos exec -- "\$MELOS_ROOT_PATH/coverage_helper.sh \$MELOS_PACKAGE_NAME --clean"
 
   test:coverage:
     run: melos exec -c 1 -- "flutter test --no-pub --coverage"
