@@ -26,9 +26,9 @@ void main() {
     // given
 
     // when
-    final currentUserUIDStream = userUIDFirebaseRepository.read();
 
     // then
+    final currentUserUIDStream = userUIDFirebaseRepository.read();
     expectLater(currentUserUIDStream, emits(userUID));
   });
 
@@ -36,9 +36,9 @@ void main() {
     // given
 
     // when
-    final currentUserUID = await userUIDFirebaseRepository.readCurrent();
 
     // then
+    final currentUserUID = await userUIDFirebaseRepository.readCurrent();
     expect(currentUserUID, userUID);
   });
 }
