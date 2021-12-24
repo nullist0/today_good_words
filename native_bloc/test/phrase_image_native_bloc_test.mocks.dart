@@ -30,6 +30,4 @@ class MockShareService extends _i1.Mock implements _i2.ShareService {
       (super.noSuchMethod(Invocation.method(#share, [image]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
-  @override
-  String toString() => super.toString();
 }

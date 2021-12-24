@@ -170,7 +170,7 @@ packages:
     source: hosted
     version: "2.2.0"
   domain:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       path: "../domain"
       relative: true

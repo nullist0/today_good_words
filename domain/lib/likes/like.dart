@@ -14,4 +14,8 @@ class Like{
     }
     return super == other;
   }
+
+  @override
+  int get hashCode => Object.hash(isLiked, count);
+
 }

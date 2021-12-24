@@ -1,0 +1,48 @@
+name: todaygoodwords
+
+packages:
+  - bloc/**
+  - domain/**
+  - filed_service/**
+  - firebase_repository/**
+  - native_bloc/**
+  - view/**
+  - '*'
+
+scripts:
+  analyze:
+    run: melos exec -- "dart analyze ."
+
+  test:all:
+    run: |
+      melos run test --no-select && \
+      melos run test:integration --no-select
+
+  test:all_coverage:
+    run: |
+      melos exec -- "\$MELOS_ROOT_PATH/coverage_helper.sh $MELOS_PACKAGE_NAME --create" && \
+      melos run test:coverage --no-select && \
+      melos exec -- "\$MELOS_ROOT_PATH/combine_coverage.sh" && \
+      melos exec -- "\$MELOS_ROOT_PATH/coverage_helper.sh $MELOS_PACKAGE_NAME --clean"
+
+  test:coverage:
+    run: melos exec -c 1 -- "flutter test --no-pub --coverage"
+    select-package:
+      dir-exists: test
+      ignore: todaysgoodwords
+
+  test:
+    run: melos exec -c 1 -- "flutter test --no-pub"
+    select-package:
+      dir-exists: test
+      ignore: todaysgoodwords
+
+  test:integration:
+    run: melos exec -- "flutter test integration_test --no-pub"
+    select-package:
+      dir-exists: integration_test
+
+  build:android:
+    run: melos exec -- "flutter build apk --no-pub"
+    select-package:
+      dir-exists: android
