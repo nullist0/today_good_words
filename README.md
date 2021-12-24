@@ -31,19 +31,7 @@ melos run test
 
 ## Integration tests
 
-To run integration tests, run the docker image for the firebase emulator as following.
-
-```shell
-docker run -d -p 8080:8080 -p 9099:9099 -p 4000:4000 nullist/today-good-words-firebase-emulator
-```
-
-If you want to build the docker image by yourself, run the following command.
-
-```shell
-docker build -t today-good-words-firebase-emulator .
-```
-
-The integration test can be run by following command.
+To run integration tests, run the following command.
 
 ```shell
 melos bootstrap
