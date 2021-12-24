@@ -16,19 +16,27 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2\
+      - name: Cache android sdk
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-android-sdk
+          path: ~/.android
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck
-      - name: run tests
+      - name: setting melos
         run: |
           dart pub global activate melos
-          alias melos='dart pub global run melos'
-          melos run test:all
-          melos run test:all_coverage
+          melos bs
+      - name: run integration tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: |
+            melos run test:all
+            melos run test:all_coverage
       - name: send combined code coverage
         uses: codecov/codecov-action@v2
         with:
@@ -36,18 +44,26 @@ jobs:
           directory: 'coverage_report'
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+      - name: Cache Android sdk
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-android-sdk
+          path: ~/.android
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - name: run build apk
+      - name: setting melos
         run: |
           dart pub global activate melos
-          alias melos='dart pub global run melos'
-          melos run build:android
+          melos bs
+      - name: run build apk
+        run: melos run build:android
