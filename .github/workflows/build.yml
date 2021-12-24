@@ -38,9 +38,9 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: |
-            melos run test:all
-            melos run test:unit:all_coverage
+          script: melos run test:all
+      - name: Create coverage report
+        run: melos run test:unit:all_coverage
       - name: Send combined code coverage
         uses: codecov/codecov-action@v2
         with:
