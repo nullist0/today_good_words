@@ -32,8 +32,6 @@ jobs:
         run: |
           dart pub global activate melos
           melos bs
-      - name: Run build
-        run: melos run build
       - name: Create coverage report
         run: melos run test:unit:all_coverage
       - name: Setting before integration tests

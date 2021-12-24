@@ -43,11 +43,6 @@ scripts:
     select-package:
       dir-exists: integration_test
 
-  build:
-    run: melos exec -- "flutter build --no-pub"
-    select-package:
-      dir-exists: android
-
   build:android:
     run: melos exec -- "flutter build apk --no-pub"
     select-package:
