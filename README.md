@@ -1,5 +1,6 @@
-[![Codemagic build status](https://api.codemagic.io/apps/5f70828e40212b743c0d1d56/5f70828e40212b743c0d1d55/status_badge.svg)](https://codemagic.io/apps/5f70828e40212b743c0d1d56/5f70828e40212b743c0d1d55/latest_build)
+[![build](https://github.com/out-of-existence/TodayGoodWords/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/out-of-existence/TodayGoodWords/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/out-of-existence/TodayGoodWords/branch/master/graph/badge.svg?token=4RCKXZR28J)](https://codecov.io/gh/out-of-existence/TodayGoodWords)
+[![melos](https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square)](https://github.com/invertase/melos)
 
 # Introduction
 
@@ -15,8 +16,17 @@
 
 ## Unit tests
 
+To run unit tests of specific package, move to the package directory and run the following command.
+
 ```shell
 flutter test
+```
+
+To run all unit tests of packages, run the following command.
+
+```shell
+melos bootstrap
+melos run test
 ```
 
 ## Integration tests
@@ -33,10 +43,11 @@ If you want to build the docker image by yourself, run the following command.
 docker build -t today-good-words-firebase-emulator .
 ```
 
-The integration test can be tested by following command.
+The integration test can be run by following command.
 
 ```shell
-flutter test -d <device> integration_test
+melos bootstrap
+melos run test:integration
 ```
 
 # Result
