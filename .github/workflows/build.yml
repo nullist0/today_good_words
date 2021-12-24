@@ -45,6 +45,8 @@ jobs:
         with:
           api-level: 29
           script: melos run test:integration
+        env:
+          FIREBASE_HOSTNAME: build
       - name: Run build apk
         run: melos run build:android
       - name: Send combined code coverage
