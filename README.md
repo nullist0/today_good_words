@@ -31,7 +31,7 @@ melos run test
 
 ## Integration tests
 
-To run integration tests, run the following command.
+To run integration tests, open the emulator and run the following command.
 
 ```shell
 melos bootstrap
