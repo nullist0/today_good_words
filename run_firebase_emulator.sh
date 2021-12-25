@@ -7,7 +7,7 @@ if [ $option = "--start" ]; then
 
   while :
   do
-    curl -f http://localhost:4000/ && exit 1
+    curl -f http://localhost:4000/ && break
     sleep 1
   done
 elif [ $option = "--stop" ]; then
@@ -16,3 +16,5 @@ elif [ $option = "--stop" ]; then
 else
   echo "usage: $0 [--start | --stop]"
 fi
+
+echo "docker image is loaded!"
