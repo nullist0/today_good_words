@@ -1,5 +1,4 @@
 name: native_bloc
-description: A new Flutter project.
 version: 0.0.1
 publish_to: none
 
@@ -17,6 +16,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  lints: ^1.0.1
+  flutter_lints: ^1.0.0
   mockito: ^5.0.16
   build_runner: ^2.1.2

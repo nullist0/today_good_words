@@ -21,6 +21,7 @@ jobs:
         with:
           key: ${{ runner.os }}-sdk
           path: |
+            /usr/local/lib/android/sdk
             ~/.android
             ~/.cache/firebase/emulators
       - name: Setup Android SDK
