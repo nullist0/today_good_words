@@ -14,7 +14,7 @@ scripts:
     run: melos exec -- "dart analyze ."
 
   build:
-    run: melos exec -- "flutter pub run build_runner build --delete-conflicting-outputs"
+    run: melos exec -c 1 -- "flutter pub run build_runner build --delete-conflicting-outputs"
 
   test:all:
     run: |

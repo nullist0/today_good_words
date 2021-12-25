@@ -49,7 +49,9 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: melos run test:integration
+          script: |
+            flutter doctor -v
+            melos run test:integration
         env:
           FIREBASE_HOSTNAME: build
       - name: Run build apk
