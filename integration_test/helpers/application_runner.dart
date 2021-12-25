@@ -14,7 +14,7 @@ DateTime currentWithData = DateTime(2006, 10, 1);
 class ApplicationRunner {
   Future<void> startTestFirebase() async {
     await Firebase.initializeApp();
-    const hostname = String.fromEnvironment('FIREBASE_HOSTNAME', defaultValue: 'localhost');
+    const hostname = 'localhost';
     FirebaseFirestore.instance.useFirestoreEmulator(hostname, 8080);
     FirebaseAuth.instance.useAuthEmulator(hostname, 9099);
   }

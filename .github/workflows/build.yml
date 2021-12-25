@@ -19,7 +19,7 @@ jobs:
       - name: Cache environments
         uses: actions/cache@v2
         with:
-          key: ${{ runner.os }}-android-sdk
+          key: ${{ runner.os }}-sdk
           path: |
             ~/.android
             ~/.cache/firebase/emulators
@@ -32,7 +32,11 @@ jobs:
         run: |
           dart pub global activate melos
           melos bs
-      - name: Create coverage report
+      - name: Run static analysis
+        run: melos run analyze
+      - name: Build
+        run: melos run build
+      - name: Run unit tests and create a coverage report
         run: melos run test:unit:all_coverage
       - name: Setting before integration tests
         run: |

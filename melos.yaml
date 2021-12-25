@@ -13,6 +13,9 @@ scripts:
   analyze:
     run: melos exec -- "dart analyze ."
 
+  build:
+    run: melos exec -- "flutter pub run build_runner build"
+
   test:all:
     run: |
       melos run test:unit --no-select && \

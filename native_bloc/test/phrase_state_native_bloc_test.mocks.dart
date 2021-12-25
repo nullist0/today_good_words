@@ -31,6 +31,8 @@ class MockPhraseRepository extends _i1.Mock implements _i2.PhraseRepository {
   _i3.Stream<_i4.Phrase> read() =>
       (super.noSuchMethod(Invocation.method(#read, []),
           returnValue: Stream<_i4.Phrase>.empty()) as _i3.Stream<_i4.Phrase>);
+  @override
+  String toString() => super.toString();
 }
 
 /// A class which mocks [PhraseThemeRepository].
@@ -47,4 +49,6 @@ class MockPhraseThemeRepository extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#read, []),
               returnValue: Stream<_i6.PhraseTheme>.empty())
           as _i3.Stream<_i6.PhraseTheme>);
+  @override
+  String toString() => super.toString();
 }

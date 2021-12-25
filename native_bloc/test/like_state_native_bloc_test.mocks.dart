@@ -33,4 +33,6 @@ class MockLikeRepository extends _i1.Mock implements _i2.LikeRepository {
   _i3.Future<void> like() => (super.noSuchMethod(Invocation.method(#like, []),
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  String toString() => super.toString();
 }
