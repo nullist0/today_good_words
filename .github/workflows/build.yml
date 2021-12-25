@@ -20,7 +20,7 @@ jobs:
         uses: actions/cache@2
         id: android-sdk
         with:
-          key: @{{ runner.os }}-android-sdk
+          key: ${{ runner.os }}-android-sdk
           path: |
             /usr/local/lib/android/adk
             ~/.android
