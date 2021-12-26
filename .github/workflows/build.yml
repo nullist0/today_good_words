@@ -35,7 +35,7 @@ jobs:
       - name: Setup Flutter SDK
         run: |
           git clone https://github.com/out-of-existence/flutter.git $HOME/flutter
-          export PATH=$PATH:$HOME/flutter/bin
+          echo $HOME/flutter/bin >> $GITHUB_PATH
           flutter doctor -v
       - name: Setting melos
         run: |
