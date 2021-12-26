@@ -41,6 +41,7 @@ workflows:
         # set up local properties
         echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
       - |
+        #!/bin/sh
         # set up melos
         alias melos="dart pub global run melos"
         melos bs
@@ -50,6 +51,7 @@ workflows:
       - melos run test:integration
       - melos run test:unit:coverage
       - |
+        #!/bin/sh
         # send coverage report
         curl -Os https://uploader.codecov.io/latest/linux/codecov
         chmod +x codecov
