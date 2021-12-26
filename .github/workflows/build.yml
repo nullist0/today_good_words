@@ -50,19 +50,19 @@ jobs:
           curl -sL https://firebase.tools | bash
       - name: Run static analysis
         run: melos run analyze
-      - name: Build
-        run: melos run build
       - name: Run unit tests and create a coverage report
         run: melos run test:unit:all_coverage
       - name: Run integration tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 28
-          script: melos run test:integration
-      - name: Run build apk
-        run: melos run build:android
+          script: |
+            flutter doctor -v
+            melos run test:integration
       - name: Send combined code coverage
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: 'coverage_report'
+      - name: Run build apk
+        run: melos run build:android
