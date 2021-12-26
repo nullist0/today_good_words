@@ -10,11 +10,11 @@ if [ $option = "--start" ]; then
     curl -f http://localhost:4000/ && break
     sleep 1
   done
+  echo "docker image is loaded!"
 elif [ $option = "--stop" ]; then
   docker stop firebase-emulator
   docker rm firebase-emulator
+  echo "docker image is unloaded!"
 else
   echo "usage: $0 [--start | --stop]"
 fi
-
-echo "docker image is loaded!"
