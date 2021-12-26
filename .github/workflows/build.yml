@@ -35,8 +35,11 @@ jobs:
       - name: Setup Flutter SDK
         run: |
           git clone https://github.com/out-of-existence/flutter.git $HOME/flutter
-          echo "$HOME/flutter/bin" >> $GITHUB_PATH
           $HOME/flutter/bin/flutter doctor -v
+          FLUTTER_ROOT="$HOME/flutter"
+          PUB_CACHE="$HOME/.pub-cache"
+          echo "$FLUTTER_ROOT/bin" >> $GITHUB_PATH
+          echo "$PUB_CACHE/bin" >> $GITHUB_PATH
       - name: Setting melos
         run: |
           dart pub global activate melos
