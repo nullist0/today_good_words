@@ -41,11 +41,16 @@ scripts:
       ignore: todaysgoodwords
 
   test:integration:
-    run: melos exec -- "flutter test integration_test --verbose --no-pub"
+    run: melos exec -- "flutter test integration_test --no-pub"
     select-package:
       dir-exists: integration_test
 
   build:android:
     run: melos exec -- "flutter build apk --no-pub"
+    select-package:
+      dir-exists: android
+
+  build:android:debug:
+    run: melos exec -- "flutter build apk --debug --no-pub"
     select-package:
       dir-exists: android
