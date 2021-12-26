@@ -35,10 +35,8 @@ melos run test
 To run integration tests, open the android emulator and run the following command.
 
 ```bash
-sudo ./run_firebase_emulator.sh --start # start firebase emulator
 melos bootstrap
 melos run test:integration
-sudo ./run_firebase_emulator.sh --stop  # stop firebase emulator
 ```
 
 # Architecture

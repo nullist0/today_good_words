@@ -15,15 +15,13 @@ void main() {
   group('end to end tests', () {
     late ApplicationRunner runner;
 
-    setUp(() {
+    setUp(() async {
       runner = ApplicationRunner();
+      await runner.startTestFirebase();
     });
 
     testWidgets('phrase load fail test', (tester) async {
-      await tester.runAsync(() async {
-        await runner.startTestFirebase();
-        await runner.startApp(tester, currentWithoutData);
-      });
+      await runner.startApp(tester, currentWithoutData);
 
       runner.displayFailure();
       runner.notDisplayLike();
@@ -37,10 +35,7 @@ void main() {
       );
       final like = Like(false, 0);
 
-      await tester.runAsync(() async {
-        await runner.startTestFirebase();
-        await runner.startApp(tester, currentWithData);
-      });
+      await runner.startApp(tester, currentWithData);
 
       runner.displayPhrase(tester, phrase, phraseTheme);
       runner.displayLike(like);
@@ -50,10 +45,7 @@ void main() {
       final liked = Like(true, 1);
       final unliked = Like(false, 0);
 
-      await tester.runAsync(() async {
-        await runner.startTestFirebase();
-        await runner.startApp(tester, currentWithData);
-      });
+      await runner.startApp(tester, currentWithData);
 
       await runner.switchLike(tester);
       runner.displayLike(liked);

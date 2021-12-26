@@ -50,15 +50,11 @@ jobs:
         run: melos run build
       - name: Run unit tests and create a coverage report
         run: melos run test:unit:all_coverage
-      - name: Set up before integration tests
-        run: ./run_firebase_emulator.sh --start
       - name: Run integration tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 28
           script: melos run test:integration
-      - name: Teardown after integration tests
-        run: ./run_firebase_emulator.sh --stop
       - name: Run build apk
         run: melos run build:android
       - name: Send combined code coverage

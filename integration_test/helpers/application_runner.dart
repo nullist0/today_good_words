@@ -20,10 +20,8 @@ class ApplicationRunner {
   }
 
   Future<void> startApp(final WidgetTester tester, [DateTime? current]) async {
-    await app.main(current != null ? <String>[current.toString()] : <String>[]);
+    app.main(current != null ? <String>[current.toString()] : <String>[]);
 
-    await tester.pumpAndSettle();
-    await tester.idle();
     await tester.pumpAndSettle();
   }
 
@@ -66,13 +64,11 @@ class ApplicationRunner {
 
   Future<void> switchLike(final WidgetTester tester) async {
     await tester.tap(_likeWidget());
-    await tester.idle();
     await tester.pumpAndSettle();
   }
   
   Future<void> sharePhraseImage(final WidgetTester tester) async {
     await tester.tap(_shareWidget());
-    await tester.idle();
     await tester.pumpAndSettle();
   }
 }

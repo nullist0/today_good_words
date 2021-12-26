@@ -41,7 +41,8 @@ scripts:
       ignore: todaysgoodwords
 
   test:integration:
-    run: melos exec -- "flutter test integration_test --verbose --no-pub"
+    run: melos exec -- \
+      "firebase emulators:exec --import=firebase_dummy_data 'flutter test integration_test --no-pub'"
     select-package:
       dir-exists: integration_test
 
