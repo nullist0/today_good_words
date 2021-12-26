@@ -34,8 +34,8 @@ jobs:
         uses: android-actions/setup-android@v2
       - name: Setup Flutter SDK
         run: |
-          git clone https://github.com/out-of-existence/flutter.git /home/flutter
-          export PATH=$PATH:/home/flutter/bin
+          git clone https://github.com/out-of-existence/flutter.git $HOME/flutter
+          export PATH=$PATH:$HOME/flutter
           flutter doctor -v
       - name: Setting melos
         run: |
