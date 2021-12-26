@@ -42,7 +42,7 @@ workflows:
         echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
       - |
         # set up melos
-        dart pub global activate melos
+        alias melos="dart pub global run melos"
         melos bs
       - ./run_firebase_emulator.sh --start
       - melos run analyze
