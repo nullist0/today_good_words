@@ -27,7 +27,7 @@ To run all unit tests of packages, run the following command.
 
 ```bash
 melos bootstrap
-melos run test
+melos run test:unit
 ```
 
 ## Integration tests
