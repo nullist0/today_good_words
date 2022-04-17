@@ -1,5 +1,5 @@
 [![build](https://github.com/out-of-existence/TodayGoodWords/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/out-of-existence/TodayGoodWords/actions/workflows/build.yml)
-[![codecov](https://codecov.io/gh/out-of-existence/TodayGoodWords/branch/master/graph/badge.svg?token=4RCKXZR28J)](https://codecov.io/gh/out-of-existence/TodayGoodWords)
+[![codecov](https://codecov.io/gh/nullist0/today_good_words/branch/master/graph/badge.svg?token=4RCKXZR28J)](https://codecov.io/gh/nullist0/today_good_words)
 [![melos](https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square)](https://github.com/invertase/melos)
 
 # Introduction
